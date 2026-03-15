@@ -67,19 +67,31 @@
 
         <!-- OVERLAY MOBILE (só aparece no mobile quando menu aberto) -->
         <div class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden peer-checked:block"></div>
-
+        
         <!-- SIDEBAR (layout desktop inalterado + versão mobile drawer pura CSS) -->
         <div class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-xl 
                     fixed inset-y-0 left-0 z-50 
                     -translate-x-full peer-checked:translate-x-0 
                     lg:translate-x-0 lg:static 
                     transition-transform duration-300">
-            <div class="px-8 py-8 border-b border-gray-100 flex items-center gap-3">
-                <div class="w-12 h-12 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-3xl font-bold">🩺</div>
-                <div>
-                    <h1 class="text-3xl font-bold tracking-tight text-[#6aa54c]">Plano de Saúde</h1>
-                    <p class="text-xs text-emerald-500 -mt-1">Corretor Autônomo</p>
-                </div>
+                
+            <div class="px-6 py-0 border-b border-gray-100 flex items-center gap-3">
+                <div class="px-8 py-8 border-b border-gray-100 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-3xl font-bold">🩺</div>
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight text-[#6aa54c]">Plano de Saúde</h1>
+            <p class="text-xs text-emerald-500 -mt-1">Corretor Autônomo</p>
+        </div>
+    </div>
+    
+    <!-- Botão fechar (só mobile) -->
+    <label for="mobile-sidebar" 
+           class="fixed top-4 left-4 z-50 lg:hidden text-3xl text-gray-700 cursor-pointer hover:text-red-600 transition-colors">
+       <i class="fa-solid fa-xmark"></i>
+    </label> 
+</div>
+                
             </div>
             <nav class="flex-1 px-4 py-6 overflow-y-auto">
                 <ul class="space-y-2">
