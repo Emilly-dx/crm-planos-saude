@@ -146,95 +146,180 @@
                 </div>
 
                 <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
-                <div id="section-clientes" class="section mt-10">
-                    <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
-                    <!-- Tabela com scroll horizontal no mobile + coluna Ações -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
-                        <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-4 text-left">Nome</th>
-                                        <th class="px-6 py-4 text-left">Telefone</th>
-                                        <th class="px-6 py-4 text-left">Status</th>
-                                        <th class="px-6 py-4 text-left">Retorno</th>
-                                        <th class="px-6 py-4 text-right">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y">
-                                    <tr>
-                                        <td class="px-6 py-4">Maria Oliveira</td>
-                                        <td class="px-6 py-4">(98) 98765-4321</td>
-                                        <td><span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-3xl text-xs">Fechado</span></td>
-                                        <td class="px-6 py-4">15/03/2026</td>
-                                        <td class="px-6 py-4 text-right whitespace-nowrap">
-                                            <div class="flex items-center justify-end gap-4">
-                                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
-                                                        class="text-sky-600 hover:text-sky-700 transition-colors">
-                                                    <i class="fa-solid fa-pen text-lg"></i>
-                                                </button>
-                                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
-                                                        class="text-red-500 hover:text-red-700 transition-colors">
-                                                    <i class="fa-solid fa-trash text-lg"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4">João Mendes</td>
-                                        <td class="px-6 py-4">(98) 91234-5678</td>
-                                        <td><span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-3xl text-xs">Em negociação</span></td>
-                                        <td class="px-6 py-4">20/03/2026</td>
-                                        <td class="px-6 py-4 text-right whitespace-nowrap">
-                                            <div class="flex items-center justify-end gap-4">
-                                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
-                                                        class="text-sky-600 hover:text-sky-700 transition-colors">
-                                                    <i class="fa-solid fa-pen text-lg"></i>
-                                                </button>
-                                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
-                                                        class="text-red-500 hover:text-red-700 transition-colors">
-                                                    <i class="fa-solid fa-trash text-lg"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+<div id="section-clientes" class="section mt-10">
+    <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
 
-                    <!-- Formulário de cadastro (grid responsivo: 1 coluna mobile, 2 desktop) -->
-                    <div class="mt-10 bg-white rounded-3xl p-8 shadow-sm">
-                        <h4 class="font-semibold mb-6">Novo Cliente (envia para backend)</h4>
-                        <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Nome completo</label>
-                                <input type="text" name="nome" id="nome" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+    <!-- Tabela com scroll horizontal + colunas expandidas -->
+    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-[1400px] divide-y divide-gray-200">
+                <thead class="bg-gray-50 sticky top-0">
+                    <tr>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[160px]">Nome</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[130px]">Telefone</th>
+                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[90px]">Grávida?</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">Nascimento</th>
+                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[80px]">Altura</th>
+                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[80px]">Peso</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[130px]">CPF</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">RG</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[120px]">Status</th>
+                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">Retorno</th>
+                        <th class="px-5 py-4 text-right text-sm font-semibold text-gray-700 min-w-[100px]">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-5 py-4 text-gray-900">Maria Oliveira</td>
+                        <td class="px-5 py-4 text-gray-600">(98) 98765-4321</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="text-green-600 font-medium">Sim</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">12/05/1992</td>
+                        <td class="px-5 py-4 text-center text-gray-600">162 cm</td>
+                        <td class="px-5 py-4 text-center text-gray-600">68,5 kg</td>
+                        <td class="px-5 py-4 text-gray-600">123.456.789-00</td>
+                        <td class="px-5 py-4 text-gray-600">12.345.678-9</td>
+                        <td class="px-5 py-4">
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-3xl text-xs font-medium">Fechado</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">15/03/2026</td>
+                        <td class="px-5 py-4 text-right whitespace-nowrap">
+                            <div class="flex items-center justify-end gap-4">
+                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
+                                        class="text-sky-600 hover:text-sky-800 transition-colors">
+                                    <i class="fa-solid fa-pen text-lg"></i>
+                                </button>
+                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
+                                        class="text-red-500 hover:text-red-700 transition-colors">
+                                    <i class="fa-solid fa-trash text-lg"></i>
+                                </button>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Telefone / WhatsApp</label>
-                                <input type="tel" name="telefone" id="telefone" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+                        </td>
+                    </tr>
+
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-5 py-4 text-gray-900">João Mendes</td>
+                        <td class="px-5 py-4 text-gray-600">(98) 91234-5678</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="text-gray-500">Não</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">08/11/1987</td>
+                        <td class="px-5 py-4 text-center text-gray-600">178 cm</td>
+                        <td class="px-5 py-4 text-center text-gray-600">82 kg</td>
+                        <td class="px-5 py-4 text-gray-600">987.654.321-00</td>
+                        <td class="px-5 py-4 text-gray-600">98.765.432-1</td>
+                        <td class="px-5 py-4">
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-3xl text-xs font-medium">Em negociação</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">20/03/2026</td>
+                        <td class="px-5 py-4 text-right whitespace-nowrap">
+                            <div class="flex items-center justify-end gap-4">
+                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
+                                        class="text-sky-600 hover:text-sky-800 transition-colors">
+                                    <i class="fa-solid fa-pen text-lg"></i>
+                                </button>
+                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
+                                        class="text-red-500 hover:text-red-700 transition-colors">
+                                    <i class="fa-solid fa-trash text-lg"></i>
+                                </button>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Status da negociação</label>
-                                <select name="status" id="status" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                                    <option>Interessado</option>
-                                    <option>Em negociação</option>
-                                    <option>Fechado</option>
-                                    <option>Perdido</option>
-                                </select>
+                        </td>
+                    </tr>
+
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-5 py-4 text-gray-900">Ana Clara Souza</td>
+                        <td class="px-5 py-4 text-gray-600">(99) 99876-5432</td>
+                        <td class="px-5 py-4 text-center">
+                            <span class="text-green-600 font-medium">Sim</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">19/03/1998</td>
+                        <td class="px-5 py-4 text-center text-gray-600">165 cm</td>
+                        <td class="px-5 py-4 text-center text-gray-600">59,2 kg</td>
+                        <td class="px-5 py-4 text-gray-600">456.789.123-00</td>
+                        <td class="px-5 py-4 text-gray-600">45.678.912-3</td>
+                        <td class="px-5 py-4">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-3xl text-xs font-medium">Interessado</span>
+                        </td>
+                        <td class="px-5 py-4 text-gray-600">05/04/2026</td>
+                        <td class="px-5 py-4 text-right whitespace-nowrap">
+                            <div class="flex items-center justify-end gap-4">
+                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
+                                        class="text-sky-600 hover:text-sky-800 transition-colors">
+                                    <i class="fa-solid fa-pen text-lg"></i>
+                                </button>
+                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
+                                        class="text-red-500 hover:text-red-700 transition-colors">
+                                    <i class="fa-solid fa-trash text-lg"></i>
+                                </button>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Data de retorno</label>
-                                <input type="date" name="retorno" id="retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                            </div>
-                            <button type="submit" 
-                                    class="col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
-                                Salvar Cliente
-                            </button>
-                        </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Formulário de cadastro (mantido exatamente igual) -->
+    <div class="mt-10 bg-white rounded-3xl p-8 shadow-sm">
+        <h4 class="font-semibold mb-6">Novo Cliente (envia para backend)</h4>
+        <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium mb-2">Nome completo</label>
+                <input type="text" name="nome" id="nome" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-2">Telefone / WhatsApp</label>
+                <input type="tel" name="telefone" id="telefone" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+            </div>
+            <!-- Novos campos solicitados -->
+            <div>
+                <label class="block text-sm font-medium mb-2">Está grávida?</label>
+                <select name="gravida" id="gravida" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
+                    <option value="">Selecionar</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                </select>
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium mb-3">Dados físicos</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">Data de nascimento</label>
+                        <input type="date" name="data_nascimento" class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">Altura (cm)</label>
+                        <input type="number" name="altura_cm" min="100" max="250" step="0.1" placeholder="ex: 165"
+                               class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-2">Peso (kg)</label>
+                        <input type="number" name="peso_kg" min="30" max="300" step="0.1" placeholder="ex: 62.5"
+                               class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
                     </div>
                 </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-2">Status da negociação</label>
+                <select name="status" id="status" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
+                    <option>Interessado</option>
+                    <option>Em negociação</option>
+                    <option>Fechado</option>
+                    <option>Perdido</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-2">Data de retorno</label>
+                <input type="date" name="retorno" id="retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
+            </div>
+            <button type="submit"
+                    class="col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
+                Salvar Cliente
+            </button>
+        </form>
+    </div>
+</div>
 
                 <!-- Outras seções (mantidas exatamente como estavam) -->
                 <div id="section-negociacoes" class="section hidden md:block mt-10">
