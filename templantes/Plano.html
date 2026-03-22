@@ -40,6 +40,8 @@
                     <label class="block text-sm font-medium text-gray-600 mb-2">Senha</label>
                     <input type="password" name="senha" id="senha" required 
                            class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:outline-none focus:border-emerald-500">
+                    <input type="checkbox" onclick="senha.type = this.checked ? 'text' : 'password'">
+                    <span class="text-gray-600">Mostrar senha</span> 
                 </div>
                 <div class="flex items-center justify-between text-sm">
                     <label class="flex items-center gap-2">
@@ -202,7 +204,7 @@
                         <td class="px-5 py-4 text-gray-900">João Mendes</td>
                         <td class="px-5 py-4 text-gray-600">(98) 91234-5678</td>
                         <td class="px-5 py-4 text-center">
-                            <span class="text-gray-500">Não</span>
+                            <span class="text-red-500">Não</span>
                         </td>
                         <td class="px-5 py-4 text-gray-600">08/11/1987</td>
                         <td class="px-5 py-4 text-center text-gray-600">178 cm</td>
@@ -276,7 +278,6 @@
             <div>
                 <label class="block text-sm font-medium mb-2">Está grávida?</label>
                 <select name="gravida" id="gravida" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    <option value="">Selecionar</option>
                     <option value="sim">Sim</option>
                     <option value="nao">Não</option>
                 </select>
