@@ -54,6 +54,9 @@ config.secret.*
 .output
 .render
 
+# Python
+__pycache__/
+
 # Pastas comuns de imagens/arquivos grandes que não devem ir pro git
 # (descomente se for usar e não quiser versionar)
 # assets/images/*
