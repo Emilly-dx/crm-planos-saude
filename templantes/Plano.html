@@ -97,11 +97,11 @@
             </div>
             <nav class="flex-1 px-4 py-6 overflow-y-auto">
                 <ul class="space-y-2">
-                    <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-sky-50"><i class="fa-solid fa-house w-6 text-xl"></i><span>Início</span></a></li>
-                    <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-sky-50"><i class="fa-solid fa-users w-6 text-xl"></i><span>Meus Clientes</span></a></li>
-                    <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-sky-50"><i class="fa-solid fa-handshake w-6 text-xl"></i><span>Negociações</span></a></li>
-                    <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-sky-50"><i class="fa-solid fa-dollar-sign w-6 text-xl"></i><span>Cobranças</span></a></li>
-                    <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-sky-50"><i class="fa-solid fa-bell w-6 text-xl"></i><span>Alertas de Retorno</span></a></li>
+                    <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-house w-6 text-xl"></i><span>Início</span></a></li>
+                    <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-users w-6 text-xl"></i><span>Meus Clientes</span></a></li>
+                    <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-handshake w-6 text-xl"></i><span>Negociações</span></a></li>
+                    <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-dollar-sign w-6 text-xl"></i><span>Cobranças</span></a></li>
+                    <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-bell w-6 text-xl"></i><span>Alertas de Retorno</span></a></li>
                 </ul>
             </nav>
             <div class="p-6 border-t border-gray-100">
@@ -139,13 +139,106 @@
 
             <main class="flex-1 overflow-auto p-8 bg-gray-50">
                 <!-- DASHBOARD -->
-                <div id="section-dashboard" class="section">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white rounded-3xl p-6 shadow-sm">Clientes cadastrados<br><span class="text-4xl font-bold text-sky-600">47</span></div>
-                        <div class="bg-white rounded-3xl p-6 shadow-sm">Negociações abertas<br><span class="text-4xl font-bold text-amber-600">12</span></div>
-                        <div class="bg-white rounded-3xl p-6 shadow-sm">Cobranças em dia<br><span class="text-4xl font-bold text-emerald-600">31</span></div>
-                    </div>
+                <!-- DASHBOARD MELHORADO -->
+<div id="section-dashboard" class="section">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">Olá, Edson! 👋</h2>
+            <p class="text-gray-600">Aqui está o resumo do seu dia • 24 de março de 2026</p>
+        </div>
+        <button onclick="alert('Abrir modal de novo cliente')"
+                class="bg-[#6aa54c] hover:bg-emerald-700 text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 transition-all">
+            <i class="fa-solid fa-plus"></i>
+            Novo Cliente
+        </button>
+    </div>
+
+    <!-- KPIs Principais -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-emerald-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Clientes Cadastrados</p>
+                    <p class="text-5xl font-bold text-sky-600 mt-2">47</p>
                 </div>
+                <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl">
+                    👥
+                </div>
+            </div>
+            <div class="mt-6 text-emerald-600 text-sm font-medium flex items-center gap-1">
+                ↑ 8 este mês
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-amber-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Negociações Abertas</p>
+                    <p class="text-5xl font-bold text-amber-600 mt-2">12</p>
+                </div>
+                <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl">
+                    🤝
+                </div>
+            </div>
+            <div class="mt-6 text-amber-600 text-sm font-medium flex items-center gap-1">
+                4 precisam de follow-up hoje
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-emerald-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Cobranças em Dia</p>
+                    <p class="text-5xl font-bold text-emerald-600 mt-2">31</p>
+                </div>
+                <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl">
+                    💰
+                </div>
+            </div>
+            <div class="mt-6 text-red-500 text-sm font-medium flex items-center gap-1">
+                5 atrasadas • R$ 1.840,00
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-violet-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-gray-500">Retornos Hoje</p>
+                    <p class="text-5xl font-bold text-violet-600 mt-2">3</p>
+                </div>
+                <div class="w-14 h-14 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-3xl">
+                    🛎️
+                </div>
+            </div>
+            <a href="#section-alertas" 
+               class="mt-6 inline-block text-violet-600 hover:underline text-sm font-medium">
+                Ver todos os alertas →
+            </a>
+        </div>
+    </div>
+
+    <!-- Segunda linha: Resumo rápido + Gráfico simples -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+        <!-- Últimos clientes ou negociações -->
+        <div class="bg-white rounded-3xl p-8 shadow-sm">
+            <h3 class="font-semibold text-lg mb-6 flex items-center justify-between">
+                Negociações Recentes
+                <a href="#section-negociacoes" class="text-sm text-[#6aa54c] hover:underline">Ver todas</a>
+            </h3>
+            <!-- Aqui você pode colocar uma mini-tabela ou lista com 3-4 itens -->
+            <p class="text-gray-500 text-sm italic">Quando o backend estiver pronto, aqui aparecerá a lista das últimas negociações.</p>
+        </div>
+
+        <!-- Gráfico ou outro card -->
+        <div class="bg-white rounded-3xl p-8 shadow-sm">
+            <h3 class="font-semibold text-lg mb-6">Desempenho do Mês</h3>
+            <div class="h-64 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400">
+                <!-- Aqui virá um gráfico com Chart.js ou ApexCharts depois -->
+                Gráfico de conversão / vendas (pronto para backend)
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
 <div id="section-clientes" class="section mt-10">
@@ -274,6 +367,7 @@
                 <label class="block text-sm font-medium mb-2">Telefone / WhatsApp</label>
                 <input type="tel" name="telefone" id="telefone" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
             </div>
+
             <!-- Novos campos solicitados -->
             <div>
                 <label class="block text-sm font-medium mb-2">Está grávida?</label>
@@ -282,6 +376,19 @@
                     <option value="nao">Não</option>
                 </select>
             </div>
+
+            <!-- RG e CPF -->
+            <div>
+                <label class="block text-sm font-medium mb-2">RG</label>
+                <input type="text" name="rg" id="rg" placeholder="00.000.000-0" 
+                       class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-2">CPF</label>
+                <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" maxlength="14"
+                       class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+            </div>
+
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium mb-3">Dados físicos</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -315,7 +422,7 @@
                 <input type="date" name="retorno" id="retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
             </div>
             <button type="submit"
-                    class="col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
+                    class="col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700" btn-fade>
                 Salvar Cliente
             </button>
         </form>
