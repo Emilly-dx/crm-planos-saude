@@ -146,11 +146,6 @@
             <h2 class="text-3xl font-bold text-gray-800">Olá, Edson! 👋</h2>
             <p class="text-gray-600">Aqui está o resumo do seu dia • 24 de março de 2026</p>
         </div>
-        <button onclick="alert('Abrir modal de novo cliente')"
-                class="bg-[#6aa54c] hover:bg-emerald-700 text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 transition-all">
-            <i class="fa-solid fa-plus"></i>
-            Novo Cliente
-        </button>
     </div>
 
     <!-- KPIs Principais -->
@@ -358,7 +353,7 @@
     <!-- Formulário de cadastro (mantido exatamente igual) -->
     <div class="mt-10 bg-white rounded-3xl p-8 shadow-sm">
         <h4 class="font-semibold mb-6">Novo Cliente (envia para backend)</h4>
-        <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form action="/clientes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-sm font-medium mb-2">Nome completo</label>
                 <input type="text" name="nome" id="nome" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
