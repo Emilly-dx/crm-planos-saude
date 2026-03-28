@@ -1,62 +1,53 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request, render_template
 from database.database import conectar
 
 app = Flask(__name__)
 
+# 🔹 ROTA PRINCIPAL (abre o sistema)
 @app.route("/")
 def home():
-    return "Backend funcionando!"
+    conn = conectar()
+    cursor = conn.cursor()
 
-@app.route("/teste-banco")
-def teste_banco():
-    try:
-        conn = conectar()
-        return "Conectado ao banco com sucesso!"
-    except Exception as e:
-        return f"Erro: {e}"
-    finally:
-        conn.close()
+    cursor.execute("SELECT * FROM clientes")
+    clientes = cursor.fetchall()
 
-@app.route("/clientes")
-def listar_clientes():
-    try:
-        conn = conectar()
-        cursor = conn.cursor()
+    cursor.close()
+    conn.close()
 
-        cursor.execute("SELECT * FROM clientes")
-        dados = cursor.fetchall()
+    return render_template("Plano.html", clientes=clientes)
 
-        return jsonify(dados)  # agora retorna JSON
-
-    except Exception as e:
-        return f"Erro: {e}"
-
-    finally:
-        cursor.close()
-        conn.close()
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
+# 🔹 CADASTRAR CLIENTE
 @app.route("/clientes", methods=["POST"])
 def cadastrar_cliente():
     try:
-        # Pegando dados do formulário
         nome = request.form.get("nome")
         telefone = request.form.get("telefone")
-        email = request.form.get("email")
+
+        gravida = request.form.get("gravida")
+        # Converter para 0 ou 1
+        if gravida == "sim":
+            gravida = 1
+        else:
+            gravida = 0
+        
+        rg = request.form.get("rg")
+        cpf = request.form.get("cpf")
+        data_nascimento = request.form.get("data_nascimento")
+        altura = request.form.get("altura_cm")
+        peso = request.form.get("peso_kg")
         status = request.form.get("status")
 
         conn = conectar()
         cursor = conn.cursor()
 
         sql = """
-        INSERT INTO clientes (nome, telefone, email, status)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO clientes 
+        (nome, telefone, gravida, rg, cpf, data_nascimento, altura_cm, peso_kg, status)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
-        valores = (nome, telefone, email, status)
+        valores = (nome, telefone, gravida, rg, cpf, data_nascimento, altura, peso, status)
 
         cursor.execute(sql, valores)
         conn.commit()
@@ -69,3 +60,6 @@ def cadastrar_cliente():
     finally:
         cursor.close()
         conn.close()
+
+if __name__ == "__main__":
+    app.run(debug=True)
