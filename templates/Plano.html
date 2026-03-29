@@ -52,7 +52,7 @@
                 </div>
                 <!-- Botão "Entrar" = label do checkbox (pure CSS) -->
                 <label for="logged-in" 
-                       class="block w-full text-center bg-[#6aa54c] hover:bg-emerald-700 transition-colors text-white font-semibold py-4 rounded-3xl cursor-pointer">
+                       class="enter block w-full text-center bg-[#6aa54c] hover:bg-emerald-700  text-white font-semibold py-4 rounded-3xl cursor-pointer">
                     Entrar
                 </label>
             </form>
@@ -131,8 +131,6 @@
                     <input type="text" placeholder="Buscar cliente..." 
                            class="w-80 bg-gray-100 border border-transparent focus:border-[#6aa54c] rounded-3xl px-6 py-3 text-sm focus:outline-none">
                     <div class="text-right">
-                        <p class="text-sm font-medium">Hoje</p>
-                        <p class="text-xs text-emerald-600 font-medium">3 retornos</p>
                     </div>
                 </div>
             </header>
@@ -141,12 +139,6 @@
                 <!-- DASHBOARD -->
                 <!-- DASHBOARD MELHORADO -->
 <div id="section-dashboard" class="section">
-    <div class="flex items-center justify-between mb-8">
-        <div>
-            <h2 class="text-3xl font-bold text-gray-800">Olá, Edson! 👋</h2>
-            <p class="text-gray-600">Aqui está o resumo do seu dia • 24 de março de 2026</p>
-        </div>
-    </div>
 
     <!-- KPIs Principais -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -259,8 +251,9 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
+                    {% for cliente in clientes %}
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-5 py-4 text-gray-900">Maria Oliveira</td>
+                        <td class="px-5 py-4 text-gray-900">{{ cliente[1] }}</td>
                         <td class="px-5 py-4 text-gray-600">(98) 98765-4321</td>
                         <td class="px-5 py-4 text-center">
                             <span class="text-green-600 font-medium">Sim</span>
@@ -289,7 +282,7 @@
                     </tr>
 
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-5 py-4 text-gray-900">João Mendes</td>
+                        <td class="px-5 py-4 text-gray-900">{{ cliente[2] }}</td>
                         <td class="px-5 py-4 text-gray-600">(98) 91234-5678</td>
                         <td class="px-5 py-4 text-center">
                             <span class="text-red-500">Não</span>
@@ -318,7 +311,7 @@
                     </tr>
 
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-5 py-4 text-gray-900">Ana Clara Souza</td>
+                        <td class="px-5 py-4 text-gray-900">{{ cliente[3] }}</td>
                         <td class="px-5 py-4 text-gray-600">(99) 99876-5432</td>
                         <td class="px-5 py-4 text-center">
                             <span class="text-green-600 font-medium">Sim</span>
@@ -345,6 +338,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -417,7 +411,7 @@
                 <input type="date" name="retorno" id="retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
             </div>
             <button type="submit"
-                    class="col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700" btn-fade>
+                    class="btn col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
                 Salvar Cliente
             </button>
         </form>
