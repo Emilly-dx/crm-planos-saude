@@ -1,5 +1,4 @@
 
-
 :root {
     --primary: #0ea5e9;
 }
@@ -17,6 +16,7 @@ body { font-family: 'Inter', system-ui, sans-serif; }
 /* Login screen */
 #login-screen {
     animation: fadeIn 0.6s ease;
+    
 }
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -34,5 +34,40 @@ body { font-family: 'Inter', system-ui, sans-serif; }
 .status-em-negociacao { background-color: #dbeafe; color: #1e40af; }
 .status-fechado { background-color: #d1fae5; color: #065f46; }
 .status-perdido { background-color: #fee2e2; color: #991b1b; }
+
+#mobile-sidebar:checked ~ .w-72 .hamburguer-btn {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 60;
+}
+
+.btn {
+
+    transition: all 0.3s ease;
+}
+
+.btn:hover{
+    background-color: #000000;
+    color: rgb(89, 235, 53);
+
+    transform: translateY(-2px);
+
+}
+
+.enter {
+    
+    transition: all 0.3s ease;
+}
+
+.enter:hover{
+    background-color: #000000;
+    color: rgb(89, 235, 53);
+
+    transform: translateY(-2px);
+
+}
+
+
 
 
