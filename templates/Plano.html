@@ -13,13 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS separado -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='plano.css') }}">
+    <link rel="stylesheet" href="plano.css">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
 <!-- ==================== INÍCIO DO CÓDIGO DO LOGIN ==================== -->
     <!-- Checkbox hack puro CSS (sem JS) para trocar tela de login → página principal -->
-    <input type="checkbox" id="logged-in" class="peer hidden" checked>
+    <input type="checkbox" id="logged-in" class="peer hidden">
 
     <!-- TELA DE LOGIN (aparece primeiro) -->
     <div id="login-screen" class=" peer-checked:hidden flex items-center justify-center min-h-screen bg-gradient-to-br from-[#6aa54c] to-emerald-600">
@@ -51,7 +51,7 @@
                     <a href="#" class="text-sky-600 hover:underline">Esqueci a senha</a>
                 </div>
                 <!-- Botão "Entrar" = label do checkbox (pure CSS) -->
-                <label for="logged-in" 
+                <label for="logged-in" onclick="localStorage.setItem('logado', 'true')"
                        class="enter block w-full text-center bg-[#6aa54c] hover:bg-emerald-700  text-white font-semibold py-4 rounded-3xl cursor-pointer">
                     Entrar
                 </label>
@@ -62,7 +62,7 @@
 <!-- ==================== FIM DO CÓDIGO DO LOGIN ==================== -->
 
 <!-- ==================== PÁGINA PRINCIPAL (só aparece após "login") ==================== -->
-    <div id="main-app" class="peer-checked:flex hidden flex h-screen overflow-hidden">
+    <div id="main-app" class="hidden peer-checked:flex hidden flex h-screen overflow-hidden">
 
         <!-- CHECKBOX HACK PARA MENU MOBILE (drawer) - NÃO ALTERA NADA NO DESKTOP -->
         <input type="checkbox" id="mobile-sidebar" class="peer hidden">
@@ -105,15 +105,19 @@
                 </ul>
             </nav>
             <div class="p-6 border-t border-gray-100">
-                <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-3xl">
-                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">👨‍💼</div>
-                    <div class="flex-1">
-                        <p class="font-semibold text-sm">Edson</p>
-                        <p class="text-xs text-gray-500">Corretor Autônomo</p>
-                    </div>
-                    <a href="#" onclick="window.location.reload()" class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors"><i class="fa-solid fa-right-from-bracket"></i></a>
-                </div>
-            </div>
+    <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-3xl">
+        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">👨‍💼</div>
+        <div class="flex-1">
+            <p class="font-semibold text-sm">Edson</p>
+            <p class="text-xs text-gray-500">Corretor Autônomo</p>
+        </div>
+        <!-- Botão de Logout corrigido -->
+        <a href="#" onclick="logout()" 
+           class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+    </div>
+</div>
         </div>
 
         <!-- CONTEÚDO PRINCIPAL -->
@@ -252,41 +256,37 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     {% for cliente in clientes %}
-                        <tr class="hover:bg-gray-50 transition-colors">
+                    <tr class="hover:bg-gray-50 transition-colors">
 
-                            <td class="px-5 py-4 text-gray-900">{{ cliente[1] }}</td> <!-- nome -->
+                        <td>{{ cliente.nome }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[2] }}</td> <!-- telefone -->
+                        <td>{{ cliente.telefone }}</td>
 
-                            <td class="px-5 py-4 text-center">
-                                {{ "Sim" if cliente[3] == 1 else "Não" }}
-                            </td> <!-- gravida -->
+                        <td>{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[6] }}</td> <!-- nascimento -->
+                        <td>{{ cliente.data_nascimento }}</td>
 
-                            <td class="px-5 py-4 text-center text-gray-600">{{ cliente[7] }} cm</td> <!-- altura -->
+                        <td>{{ cliente.altura_cm }}</td>
 
-                            <td class="px-5 py-4 text-center text-gray-600">{{ cliente[8] }} kg</td> <!-- peso -->
+                        <td>{{ cliente.peso_kg }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[5] }}</td> <!-- cpf -->
+                        <td>{{ cliente.cpf }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[4] }}</td> <!-- rg -->
+                        <td>{{ cliente.rg }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[9] }}</td> <!-- status -->
+                        <td>{{ cliente.status }}</td>
 
-                            <td class="px-5 py-4 text-gray-600">{{ cliente[10] }}</td> <!-- retorno (não está no banco ainda) -->
-                            <td class="px-5 py-4 text-right">
-                            <div class="flex gap-2 justify-end">
-                                <!-- Botão Editar -->
-                                <button onclick="editarCliente({ cliente })" 
-                                    class="bg-amber-100 hover:bg-amber-200 text-amber-700 p-2 rounded-2xl transition-colors">
-                                    <i class="fa-solid fa-pen"></i>
+                        <td>{{ cliente.retorno }}</td>
+
+                        <td class="px-5 py-4 text-right">
+                            <div class="flex items-center justify-end gap-4">
+                                <button onclick="alert('Editar cliente - funcionalidade para backend')"
+                                        class="text-sky-600 hover:text-sky-800 transition-colors">
+                                    <i class="fa-solid fa-pen text-lg"></i>
                                 </button>
-                                            
-                                <!-- Botão Apagar -->
-                                <button onclick="apagarCliente({ cliente0 })" 
-                                    class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-2xl transition-colors">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
+                                        class="text-red-500 hover:text-red-700 transition-colors">
+                                    <i class="fa-solid fa-trash text-lg"></i>
                                 </button>
                             </div>
                         </td>                                             
@@ -387,5 +387,24 @@
             </main>
         </div>
     </div>
+    <script>
+    if (localStorage.getItem('logado') === 'true') {
+        document.getElementById('logged-in').checked = true;
+    }
+    </script>
+
+    <script>
+    // Verifica se já está logado ao carregar a página
+    if (localStorage.getItem('logado') === 'true') {
+        document.getElementById('logged-in').checked = true;
+    }
+
+    // Função de Logout
+    function logout() {
+        localStorage.removeItem('logado');           // Remove o login salvo
+        document.getElementById('logged-in').checked = false;  // Desmarca o checkbox
+        window.location.reload();                    // Recarrega a página
+    }
+</script>
 </body>
 </html>
