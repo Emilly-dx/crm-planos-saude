@@ -13,13 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS separado -->
-    <link rel="stylesheet" href="plano.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='plano.css') }}">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
 <!-- ==================== INÍCIO DO CÓDIGO DO LOGIN ==================== -->
     <!-- Checkbox hack puro CSS (sem JS) para trocar tela de login → página principal -->
-    <input type="checkbox" id="logged-in" class="peer hidden">
+    <input type="checkbox" id="logged-in" class="peer hidden" checked>
 
     <!-- TELA DE LOGIN (aparece primeiro) -->
     <div id="login-screen" class=" peer-checked:hidden flex items-center justify-center min-h-screen bg-gradient-to-br from-[#6aa54c] to-emerald-600">
@@ -252,21 +252,45 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     {% for cliente in clientes %}
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-5 py-4 text-gray-900">{{ cliente[1] }}</td>
-                        <td class="px-5 py-4 text-gray-600">{{ cliente[2] }}</td>
-                        <td class="px-5 py-4 text-center">
-                            {{ "Sim" if cliente[3] == 1 else "Não" }}
-                        </td>
-                        <td class="px-5 py-4 text-gray-600">{{ cliente[6] }}</td>
-                        <td class="px-5 py-4 text-center text-gray-600">{{ cliente[7] }} cm</td>
-                        <td class="px-5 py-4 text-center text-gray-600">{{ cliente[8] }} kg</td>
-                        <td class="px-5 py-4 text-gray-600">{{ cliente[5] }}</td>
-                        <td class="px-5 py-4 text-gray-600">{{ cliente[4] }}</td>
-                        <td class="px-5 py-4 text-gray-600">{{ cliente[9] }}</td>
-                        <td class="px-5 py-4 text-gray-600">-</td>
-                        <td class="px-5 py-4 text-right">...</td>
-                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+
+                            <td class="px-5 py-4 text-gray-900">{{ cliente[1] }}</td> <!-- nome -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[2] }}</td> <!-- telefone -->
+
+                            <td class="px-5 py-4 text-center">
+                                {{ "Sim" if cliente[3] == 1 else "Não" }}
+                            </td> <!-- gravida -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[6] }}</td> <!-- nascimento -->
+
+                            <td class="px-5 py-4 text-center text-gray-600">{{ cliente[7] }} cm</td> <!-- altura -->
+
+                            <td class="px-5 py-4 text-center text-gray-600">{{ cliente[8] }} kg</td> <!-- peso -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[5] }}</td> <!-- cpf -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[4] }}</td> <!-- rg -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[9] }}</td> <!-- status -->
+
+                            <td class="px-5 py-4 text-gray-600">{{ cliente[10] }}</td> <!-- retorno (não está no banco ainda) -->
+                            <td class="px-5 py-4 text-right">
+                            <div class="flex gap-2 justify-end">
+                                <!-- Botão Editar -->
+                                <button onclick="editarCliente({ cliente })" 
+                                    class="bg-amber-100 hover:bg-amber-200 text-amber-700 p-2 rounded-2xl transition-colors">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                            
+                                <!-- Botão Apagar -->
+                                <button onclick="apagarCliente({ cliente0 })" 
+                                    class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-2xl transition-colors">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>                                             
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -363,5 +387,18 @@
             </main>
         </div>
     </div>
+    <script>
+        function editarCliente(id) {
+            alert(`Editar cliente ID: ${id}\n\n(Implemente aqui a lógica de edição - ex: abrir modal com formulário preenchido)`);
+            // Futuramente: window.location.href = `/clientes/editar/${id}`;
+        }
+
+        function apagarCliente(id) {
+            if (confirm(`Tem certeza que deseja apagar o cliente ID ${id}?`)) {
+                alert(`Cliente ID ${id} apagado com sucesso!`);
+                // Futuramente: fetch(`/clientes/${id}`, { method: 'DELETE' }).then(() => location.reload());
+            }
+        }
+    </script>
 </body>
 </html>
