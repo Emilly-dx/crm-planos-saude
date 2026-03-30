@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     conn = conectar()
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
 
     cursor.execute("SELECT * FROM clientes")
     clientes = cursor.fetchall()
@@ -43,16 +43,29 @@ def cadastrar_cliente():
 
         sql = """
         INSERT INTO clientes 
-        (nome, telefone, gravida, rg, cpf, data_nascimento, altura_cm, peso_kg, status)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        (nome, telefone, email, status, peso_kg, altura_cm, gravida, data_nascimento, rg, cpf)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
-        valores = (nome, telefone, gravida, rg, cpf, data_nascimento, altura, peso, status)
+        valores = (
+            nome,
+            telefone,
+            None,  # email (já que você não usa)
+            status,
+            peso,
+            altura,
+            gravida,
+            data_nascimento,
+            rg,
+            cpf
+    )
 
         cursor.execute(sql, valores)
         conn.commit()
 
-        return "Cliente cadastrado com sucesso!"
+        from flask import redirect, url_for
+
+        return redirect(url_for('home'))
 
     except Exception as e:
         return f"Erro: {e}"
