@@ -262,7 +262,7 @@
                                         class="text-sky-600 hover:text-sky-800 transition-colors">
                                     <i class="fa-solid fa-pen text-lg"></i>
                                 </button>
-                                <button onclick="if(confirm('Excluir cliente?')) this.closest('tr').remove()"
+                                <button onclick="excluirCliente(this)" 
                                         class="text-red-500 hover:text-red-700 transition-colors">
                                     <i class="fa-solid fa-trash text-lg"></i>
                                 </button>
@@ -467,6 +467,97 @@ function cancelarEdicao(botao) {
     window.location.reload(); // solução simples: recarrega a página (não ideal em produção)
     // Para uma solução melhor sem recarregar, você precisaria guardar os valores originais antes de editar.
 }
+</script>
+
+<script>
+// ====================== GERENCIAMENTO DE CLIENTES NO FRONTEND ======================
+
+let clientes = [];
+
+// Carrega clientes do localStorage ou dos dados iniciais do backend
+function carregarClientes() {
+    const salvos = localStorage.getItem('meusClientes');
+    
+    if (salvos) {
+        clientes = JSON.parse(salvos);
+    } else {
+        // Pega os clientes que vieram do backend na primeira carga
+        clientes = Array.from(document.querySelectorAll('#section-clientes tbody tr')).map(tr => {
+            const celulas = tr.querySelectorAll('td');
+            return {
+                nome: celulas[0].textContent.trim(),
+                telefone: celulas[1].textContent.trim(),
+                gravida: celulas[2].textContent.trim(),
+                data_nascimento: celulas[3].textContent.trim(),
+                altura: celulas[4].textContent.trim(),
+                peso: celulas[5].textContent.trim(),
+                cpf: celulas[6].textContent.trim(),
+                rg: celulas[7].textContent.trim(),
+                status: celulas[8].textContent.trim(),
+                retorno: celulas[9].textContent.trim()
+            };
+        });
+        salvarClientes();
+    }
+    
+    renderizarTabela();
+}
+
+// Salva no localStorage
+function salvarClientes() {
+    localStorage.setItem('meusClientes', JSON.stringify(clientes));
+}
+
+// Renderiza a tabela novamente
+function renderizarTabela() {
+    const tbody = document.querySelector('#section-clientes tbody');
+    tbody.innerHTML = '';
+
+    clientes.forEach((cliente, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+            <td>${cliente.nome}</td>
+            <td>${cliente.telefone}</td>
+            <td>${cliente.gravida}</td>
+            <td>${cliente.data_nascimento}</td>
+            <td>${cliente.altura}</td>
+            <td>${cliente.peso}</td>
+            <td>${cliente.cpf}</td>
+            <td>${cliente.rg}</td>
+            <td>${cliente.status}</td>
+            <td>${cliente.retorno}</td>
+            <td class="px-5 py-4 text-right">
+                <div class="flex items-center justify-end gap-4">
+                    <button onclick="editarLinha(this)" class="text-sky-600 hover:text-sky-800 transition-colors">
+                        <i class="fa-solid fa-pen text-lg"></i>
+                    </button>
+                    <button onclick="excluirCliente(this)" class="text-red-500 hover:text-red-700 transition-colors">
+                        <i class="fa-solid fa-trash text-lg"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Função de excluir (agora persiste!)
+function excluirCliente(botao) {
+    if (!confirm('Tem certeza que deseja excluir este cliente?')) return;
+
+    const linha = botao.closest('tr');
+    const index = Array.from(linha.parentNode.children).indexOf(linha);
+    
+    clientes.splice(index, 1);     // Remove do array
+    salvarClientes();              // Salva no localStorage
+    renderizarTabela();            // Atualiza a tabela
+}
+
+// ====================== CHAMADA INICIAL ======================
+document.addEventListener('DOMContentLoaded', () => {
+    carregarClientes();
+});
 </script>
 </body>
 </html>
