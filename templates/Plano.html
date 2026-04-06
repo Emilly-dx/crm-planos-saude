@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plano de Saúde • CRM Corretor Autônomo</title>
-    <!-- Tailwind CSS CDN (essencial para o estilo moderno) -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,16 +12,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- CSS separado -->
+    <!-- CSS  -->
     <link rel="stylesheet" href="plano.css">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
 <!-- ==================== INÍCIO DO CÓDIGO DO LOGIN ==================== -->
-    <!-- Checkbox hack puro CSS (sem JS) para trocar tela de login → página principal -->
+    <!-- login → página principal -->
     <input type="checkbox" id="logged-in" class="peer hidden">
 
-    <!-- TELA DE LOGIN (aparece primeiro) -->
+    <!-- TELA DE LOGIN  -->
     <div id="login-screen" class=" peer-checked:hidden flex items-center justify-center min-h-screen bg-gradient-to-br from-[#6aa54c] to-emerald-600">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 p-10">
             <div class="flex justify-center mb-6">
@@ -30,7 +30,7 @@
             <h1 class="text-3xl font-bold text-center text-[#6aa54c] mb-1">Plano de Saúde</h1>
             <p class="text-center text-[#6aa54c] mb-8">CRM Corretor Autônomo</p>
 
-            <form action="#" method="POST" class="space-y-6"> <!-- Backend receberá aqui -->
+            <form action="#" method="POST" class="space-y-6"> <!-- Backend -->
                 <div>
                     <label class="block text-sm font-medium text-gray-600 mb-2">Usuário (e-mail)</label>
                     <input type="email" name="usuario" id="usuario" required 
@@ -61,16 +61,16 @@
     </div>
 <!-- ==================== FIM DO CÓDIGO DO LOGIN ==================== -->
 
-<!-- ==================== PÁGINA PRINCIPAL (só aparece após "login") ==================== -->
+<!-- ==================== PÁGINA PRINCIPAL  ==================== -->
     <div id="main-app" class="hidden peer-checked:flex hidden flex h-screen overflow-hidden">
 
-        <!-- CHECKBOX HACK PARA MENU MOBILE (drawer) - NÃO ALTERA NADA NO DESKTOP -->
+        <!-- CHECKBOX HACK PARA MENU MOBILE (drawer) -->
         <input type="checkbox" id="mobile-sidebar" class="peer hidden">
 
-        <!-- OVERLAY MOBILE (só aparece no mobile quando menu aberto) -->
+        <!-- OVERLAY MOBILE -->
         <div class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden peer-checked:block"></div>
         
-        <!-- SIDEBAR (layout desktop inalterado + versão mobile drawer pura CSS) -->
+        <!-- SIDEBAR -->
         <div class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-xl 
                     fixed inset-y-0 left-0 z-50 
                     -translate-x-full peer-checked:translate-x-0 
@@ -140,7 +140,7 @@
             </header>
 
             <main class="flex-1 overflow-auto p-8 bg-gray-50">
-                <!-- DASHBOARD -->
+                
                 <!-- DASHBOARD MELHORADO -->
 <div id="section-dashboard" class="section">
 
@@ -209,7 +209,7 @@
     </div>
 </div>
 
-                <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
+                <!-- CLIENTES -->
 <div id="section-clientes" class="section mt-10">
     <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
 
@@ -275,7 +275,7 @@
         </div>
     </div>
 
-    <!-- Formulário de cadastro (mantido exatamente igual) -->
+    <!-- Formulário de cadastro -->
     <div class="mt-10 bg-white rounded-3xl p-8 shadow-sm">
         <h4 class="font-semibold mb-6">Novo Cliente (envia para backend)</h4>
         <form action="/clientes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -349,7 +349,7 @@
     </div>
 </div>
 
-                <!-- Outras seções (mantidas exatamente como estavam) -->
+                <!-- Outras seções -->
                 <div id="section-negociacoes" class="section hidden md:block mt-10">
                     <h3 class="text-2xl font-semibold mb-6">Negociações</h3>
                     <p class="text-gray-500">Tabela de negociações (backend preencherá aqui).</p>
@@ -379,20 +379,19 @@
 
     // Função de Logout
     function logout() {
-        localStorage.removeItem('logado');           // Remove o login salvo
-        document.getElementById('logged-in').checked = false;  // Desmarca o checkbox
-        window.location.reload();                    // Recarrega a página
+        localStorage.removeItem('logado');           
+        document.getElementById('logged-in').checked = false;  
+        window.location.reload();                    
     }
 </script>
 
 <script>
 // Função para editar a linha
 function editarLinha(botao) {
-    const linha = botao.closest('tr');           // pega a <tr> atual
-    const celulas = linha.querySelectorAll('td'); // todas as células da linha
+    const linha = botao.closest('tr');           
+    const celulas = linha.querySelectorAll('td'); 
 
-    // Colunas que queremos editar (ajuste os índices conforme sua tabela)
-    // 0=Nome, 1=Telefone, 2=Grávida, 3=Nascimento, 4=Altura, 5=Peso, 6=CPF, 7=RG, 8=Status, 9=Retorno
+   
     const indicesEditaveis = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     // Guarda os valores originais e transforma em inputs
@@ -400,13 +399,13 @@ function editarLinha(botao) {
         if (indicesEditaveis.includes(index)) {
             const valorOriginal = celula.textContent.trim();
             
-            if (index === 2) { // Grávida (Sim/Não)
+            if (index === 2) { 
                 celula.innerHTML = `
                     <select class="edit-input w-full border border-sky-400 rounded px-2 py-1">
                         <option value="Sim" ${valorOriginal === "Sim" ? "selected" : ""}>Sim</option>
                         <option value="Não" ${valorOriginal === "Não" ? "selected" : ""}>Não</option>
                     </select>`;
-            } else if (index === 8) { // Status (select)
+            } else if (index === 8) { 
                 celula.innerHTML = `
                     <select class="edit-input w-full border border-sky-400 rounded px-2 py-1">
                         <option ${valorOriginal === "Interessado" ? "selected" : ""}>Interessado</option>
@@ -457,15 +456,14 @@ function salvarEdicao(botao) {
         </button>
     `;
 
-    // Aqui você pode adicionar um fetch() para enviar os dados atualizados para o backend
-    // console.log('Dados atualizados da linha:', getDadosLinha(linha));
+    
 }
 
 // Função auxiliar para cancelar (volta ao estado original)
 function cancelarEdicao(botao) {
     const linha = botao.closest('tr');
-    window.location.reload(); // solução simples: recarrega a página (não ideal em produção)
-    // Para uma solução melhor sem recarregar, você precisaria guardar os valores originais antes de editar.
+    window.location.reload(); 
+    
 }
 </script>
 
@@ -542,16 +540,16 @@ function renderizarTabela() {
     });
 }
 
-// Função de excluir (agora persiste!)
+// Função de excluir 
 function excluirCliente(botao) {
     if (!confirm('Tem certeza que deseja excluir este cliente?')) return;
 
     const linha = botao.closest('tr');
     const index = Array.from(linha.parentNode.children).indexOf(linha);
     
-    clientes.splice(index, 1);     // Remove do array
-    salvarClientes();              // Salva no localStorage
-    renderizarTabela();            // Atualiza a tabela
+    clientes.splice(index, 1);     
+    salvarClientes();              
+    renderizarTabela();           
 }
 
 // ====================== CHAMADA INICIAL ======================
