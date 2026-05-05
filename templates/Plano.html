@@ -320,7 +320,7 @@
             </main>
         </div>
     </div>
-    <script src="{% static 'js/meus_clientes.js' %}"></script>
+    <script src="{{ url_for('static', filename='js/meus_clientes.js') }}"></script>
     <script>
         // Proteção: se não estiver logado, redireciona para login
         if (localStorage.getItem('logado') !== 'true') {
@@ -331,7 +331,7 @@
         // Função de logout
         function logout() {
             localStorage.removeItem('logado');
-            window.location.replace('login.html');
+            window.location.replace('/login');
         }
 
         // Opcional: muda o título da página conforme a seção (melhoria)
