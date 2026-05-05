@@ -59,6 +59,7 @@ Aplicada na modelagem e manipulação do banco de dados MySQL.
 
 ## Estrutura do Projeto
 
+```
 MVP_plano_saudes/
 │
 ├── app.py
@@ -79,12 +80,13 @@ MVP_plano_saudes/
 │
 ├── templates/
 │   ├── login.html
-│   └── Plano.html
+│   └── plano.html
 │
 ├── static/
 │   └── Plano.css
 │
 └── venv/ (não versionado)
+```
 
 ## Organização do Sistema
 
