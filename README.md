@@ -160,9 +160,12 @@ http://127.0.0.1:5000
 
 ### Etapa Atual
 
-* Estrutura base funcional
-* Integração entre frontend e backend
-* Persistência de dados
+* Implementação de autenticação completa
+* CRUD completo (Create, Read, Update, Delete)
+* Dashboard interativo
+* Melhorias de usabilidade e experiência do usuário
+* Estruturação das rotas do sistema (em andamento)
+* Melhor organização do frontend (templates)
 
 ## Modelagem do Banco de Dados (Planejada)
 
@@ -172,23 +175,6 @@ Além da tabela de clientes já implementada, o sistema está sendo planejado pa
 - Cobranças
 - Alertas de retorno
 - Usuários (login do corretor)
-
-## 🗺️ Roadmap do Projeto
-
-### Etapa Atual
-
-* Estrutura base funcional
-* Integração entre frontend e backend
-* Persistência de dados
-
-### Próximas Etapas
-
-* Implementação de autenticação completa
-* CRUD completo (Create, Read, Update, Delete)
-* Dashboard interativo
-* Melhorias de usabilidade e experiência do usuário
-* Estruturação das rotas do sistema (em andamento)
-* Melhor organização do frontend (templates)
 
 ## Status do Projeto
  Em desenvolvimento (projeto acadêmico)
