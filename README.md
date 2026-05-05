@@ -10,15 +10,11 @@ Construir um sistema web funcional que integre frontend, backend e banco de dado
 
 ## Equipe de Desenvolvimento
 
-Backend:
+Emilly Karoline Cunha Fernandes – Líder do projeto  
+Responsável pelo desenvolvimento do backend utilizando Flask, integração com o banco de dados MySQL, implementação das regras de negócio, além do contato direto com o cliente e levantamento de requisitos.
 
-Emilly Karoline Cunha Fernandes
-  Responsável pela implementação do servidor utilizando Flask, integração com o banco de dados MySQL e lógica de negócio do sistema.
-
-Frontend:
-
-Thierry Hanry Ribeiro da Silva Cardoso
-  Responsável pela criação da interface do usuário utilizando HTML e CSS, garantindo uma boa experiência visual e usabilidade.
+Thierry Hanry Ribeiro da Silva Cardoso – Vice-líder do projeto  
+Responsável pelo desenvolvimento do frontend utilizando HTML e CSS, com foco na interface e experiência do usuário.
 
 ## Tecnologias Utilizadas
 - Python
@@ -61,6 +57,43 @@ Utilizada na definição das rotas e funções do backend (Flask).
 Aplicada na modelagem e manipulação do banco de dados MySQL.
 
 
+## Estrutura do Projeto
+
+MVP_plano_saudes/
+│
+├── app.py
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── models/
+│   ├── __init__.py
+│   ├── alertas.py
+│   ├── clientes.py
+│   ├── cobranca.py
+│   ├── corretores.py
+│   └── negociacao.py
+│
+├── routes/
+│   └── __init__.py
+│
+├── templates/
+│   ├── login.html
+│   └── Plano.html
+│
+├── static/
+│   └── Plano.css
+│
+└── venv/ (não versionado)
+
+## Organização do Sistema
+
+Inicialmente, toda a lógica da aplicação estava concentrada no arquivo `app.py`. Após feedback recebido, foi realizada uma melhoria estrutural com a criação da pasta `models`, responsável por armazenar as entidades do sistema, tornando o código mais organizado e de fácil manutenção.
+
+Também foi iniciada a separação das rotas em uma estrutura própria, visando uma arquitetura mais limpa. Essa implementação ainda está em andamento.
+
+Na camada de frontend, os arquivos HTML estão organizados na pasta `templates`, atualmente divididos principalmente entre `login.html` e `plano.html`. Essa estrutura será refinada futuramente com uma separação mais detalhada das telas.
+
 
 ## Como Executar o Projeto
 
@@ -81,6 +114,14 @@ cd crm-planos-saude
 bash
 pip install flask mysql-connector-python
 
+bash
+python -m venv venv
+venv\Scripts\activate
+
+### 4. Instalar dependências
+
+bash
+pip install -r requirements.txt
 
 ### 4. Configurar o banco de dados
 
@@ -144,6 +185,8 @@ Além da tabela de clientes já implementada, o sistema está sendo planejado pa
 * CRUD completo (Create, Read, Update, Delete)
 * Dashboard interativo
 * Melhorias de usabilidade e experiência do usuário
+* Estruturação das rotas do sistema (em andamento)
+* Melhor organização do frontend (templates)
 
 ## Status do Projeto
  Em desenvolvimento (projeto acadêmico)
