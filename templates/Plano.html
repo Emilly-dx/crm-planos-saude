@@ -189,42 +189,76 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     {% for cliente in clientes %}
-                    <tr class="hover:bg-gray-50 transition-colors">
+<tr class="hover:bg-gray-50 transition-colors" id="linha-{{ cliente.id }}">
 
-                        <td>{{ cliente.nome }}</td>
+    <!-- MODO VISUALIZAÇÃO -->
+    <td class="px-5 py-4 view-mode">{{ cliente.nome }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.telefone }}</td>
+    <td class="px-5 py-4 text-center view-mode">{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.data_nascimento }}</td>
+    <td class="px-5 py-4 text-center view-mode">{{ cliente.altura_cm }}</td>
+    <td class="px-5 py-4 text-center view-mode">{{ cliente.peso_kg }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.cpf }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.rg }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.status }}</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.retorno }}</td>
 
-                        <td>{{ cliente.telefone }}</td>
+    <!-- MODO EDIÇÃO (formulário inline) -->
+    <form action="/clientes/{{ cliente.id }}" method="POST" style="display:contents">
+        <td class="px-3 py-2 edit-mode hidden"><input name="nome" value="{{ cliente.nome }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden"><input name="telefone" value="{{ cliente.telefone }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden text-center">
+            <select name="gravida" class="border rounded-xl px-3 py-2 text-sm">
+                <option value="sim" {{ 'selected' if cliente.gravida == 1 }}>Sim</option>
+                <option value="nao" {{ 'selected' if cliente.gravida == 0 }}>Não</option>
+            </select>
+        </td>
+        <td class="px-3 py-2 edit-mode hidden"><input type="date" name="data_nascimento" value="{{ cliente.data_nascimento }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden"><input type="number" name="altura_cm" value="{{ cliente.altura_cm }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden"><input type="number" name="peso_kg" value="{{ cliente.peso_kg }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden"><input name="cpf" value="{{ cliente.cpf }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden"><input name="rg" value="{{ cliente.rg }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
+        <td class="px-3 py-2 edit-mode hidden">
+            <select name="status" class="border rounded-xl px-3 py-2 text-sm">
+                <option {{ 'selected' if cliente.status == 'Interessado' }}>Interessado</option>
+                <option {{ 'selected' if cliente.status == 'Em negociação' }}>Em negociação</option>
+                <option {{ 'selected' if cliente.status == 'Fechado' }}>Fechado</option>
+                <option {{ 'selected' if cliente.status == 'Perdido' }}>Perdido</option>
+            </select>
+        </td>
+        <td class="px-3 py-2 edit-mode hidden"><input type="date" name="data_retorno" value="{{ cliente.retorno }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
 
-                        <td>{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
+        <!-- AÇÕES -->
+        <td class="px-5 py-4 text-right">
+            <div class="flex items-center justify-end gap-3">
+                <!-- Botão editar / salvar -->
+                <button type="button" 
+                        data-id="{{ cliente.id }}"
+                        class="btn-editar text-sky-600 hover:text-sky-800 transition-colors">
+                    <i class="fa-solid fa-pen text-lg"></i>
+                </button>
+                <button type="submit"
+                        class="btn-salvar-{{ cliente.id }} hidden text-emerald-600 hover:text-emerald-800 transition-colors">
+                    <i class="fa-solid fa-check text-lg"></i>
+                </button>
+                <button type="button"
+                        data-id="{{ cliente.id }}"
+                        class="btn-cancelar hidden text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
 
-                        <td>{{ cliente.data_nascimento }}</td>
-
-                        <td>{{ cliente.altura_cm }}</td>
-
-                        <td>{{ cliente.peso_kg }}</td>
-
-                        <td>{{ cliente.cpf }}</td>
-
-                        <td>{{ cliente.rg }}</td>
-
-                        <td>{{ cliente.status }}</td>
-
-                        <td>{{ cliente.retorno }}</td>
-
-                        <td class="px-5 py-4 text-right">
-                            <div class="flex items-center justify-end gap-4">
-                                <button onclick="editarLinha(this)"
-                                        class="text-sky-600 hover:text-sky-800 transition-colors">
-                                    <i class="fa-solid fa-pen text-lg"></i>
-                                </button>
-                                <button onclick="excluirCliente(this)" 
-                                        class="text-red-500 hover:text-red-700 transition-colors">
-                                    <i class="fa-solid fa-trash text-lg"></i>
-                                </button>
-                            </div>
-                        </td>                                             
-                    </tr>
-                    {% endfor %}
+                <!-- Botão excluir -->
+                <form action="/clientes/{{ cliente.id }}/excluir" method="POST" class="inline"
+                      onsubmit="return confirm('Excluir {{ cliente.nome }}? Os alertas vinculados também serão removidos.')">
+                    <button type="submit" class="text-red-500 hover:text-red-700 transition-colors">
+                        <i class="fa-solid fa-trash text-lg"></i>
+                    </button>
+                </form>
+            </div>
+        </td>
+    </form>
+</tr>
+{% endfor %}
                 </tbody>
             </table>
         </div>
@@ -294,7 +328,7 @@
             </div>
             <div>
                 <label class="block text-sm font-medium mb-2">Data de retorno</label>
-                <input type="date" name="retorno" id="retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
+                <input type="date" name="data_retorno" id="data_retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
             </div>
             <button type="submit"
                     class="btn col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
@@ -313,10 +347,51 @@
                     <h3 class="text-2xl font-semibold mb-6">Cobranças</h3>
                     <p class="text-gray-500">Registro de vencimentos (pronto para backend).</p>
                 </div>
-                <div id="section-alertas" class="section hidden md:block mt-10">
-                    <h3 class="text-2xl font-semibold mb-6">Alertas de Retorno</h3>
-                    <p class="text-gray-500">Lista de retornos pendentes.</p>
-                </div>
+<div id="section-alertas" class="section hidden md:block mt-10">
+    <h3 class="text-2xl font-semibold mb-6">Alertas de Retorno</h3>
+
+    {% if alertas %}
+    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Cliente</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Telefone</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Data de Retorno</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Descrição</th>
+                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    {% for alerta in alertas %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 font-medium">{{ alerta.nome }}</td>
+                        <td class="px-6 py-4 text-gray-600">{{ alerta.telefone }}</td>
+                        <td class="px-6 py-4">
+                            {% if alerta.data_retorno %}
+                                {{ alerta.data_retorno.strftime('%d/%m/%Y') }}
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-gray-600">{{ alerta.descricao }}</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+                                {{ alerta.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-3xl p-10 shadow-sm text-center text-gray-400">
+        <p class="text-4xl mb-3">🔔</p>
+        <p class="font-medium">Nenhum alerta pendente no momento.</p>
+    </div>
+    {% endif %}
+</div>
             </main>
         </div>
     </div>
@@ -341,6 +416,16 @@
             });
         });
     </script>
+
+    <script>
+document.addEventListener('click', function(e) {
+    const btnEditar = e.target.closest('.btn-editar');
+    if (btnEditar) toggleEditar(btnEditar.dataset.id);
+
+    const btnCancelar = e.target.closest('.btn-cancelar');
+    if (btnCancelar) cancelarEdicao(btnCancelar.dataset.id);
+});
+</script>
     
 
 </body>

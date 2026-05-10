@@ -55,11 +55,13 @@
         function fazerLogin(e) {
             e.preventDefault();
             localStorage.setItem('logado', 'true');
-            window.location.href = '/';
+            
+            // Redireciona para a página principal
+            window.location.href = '/login';
         }
 
         if (localStorage.getItem('logado') === 'true') {
-            window.location.href = '/';
+            window.location.href = '/login';
         }
     </script>
 
