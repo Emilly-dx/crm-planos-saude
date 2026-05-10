@@ -4,11 +4,15 @@ from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alerta
 
 app = Flask(__name__)
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/")
 def home():
     clientes = listar_todos_clientes()
     alertas = listar_alertas_pendentes()
-    total_hoje = contar_alertas_hoje() # Pega o numero real
+    total_hoje = contar_alertas_hoje()
     
     return render_template("Plano.html", 
                            clientes=clientes, 
@@ -31,4 +35,4 @@ def cadastrar_cliente():
         return f"Erro ao processar cadastro: {e}"
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
