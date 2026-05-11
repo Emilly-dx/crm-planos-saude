@@ -1,0 +1,71 @@
+# Sistema operacional / editores
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Arquivos de build / gerados (caso futuramente use build)
+dist/
+build/
+output/
+*.min.css
+*.min.js
+
+# Arquivos temporários / logs
+*.log
+*.tmp
+*.bak
+*.backup
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependências (caso instale algo no futuro)
+node_modules/
+package-lock.json
+yarn.lock
+bun.lockb
+.pnpm-lock.yaml
+
+# Ambiente / segredos (mesmo que ainda não tenha)
+.env
+.env.local
+.env.development
+.env.production
+*.secret
+config.secret.*
+
+# Arquivos do sistema de deploy / hosting
+.vercel
+.netlify
+.output
+.render
+
+# Python
+__pycache__/
+
+# Pastas comuns de imagens/arquivos grandes que não devem ir pro git
+# (descomente se for usar e não quiser versionar)
+# assets/images/*
+# public/uploads/
+# media/
+
+# Arquivos do próprio projeto que normalmente NÃO versionamos
+# (descomente se criar algum desses)
+# backup/
+# old/
+# teste/
+# playground/

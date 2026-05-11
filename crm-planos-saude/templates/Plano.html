@@ -350,7 +350,6 @@
 <div id="section-alertas" class="section hidden md:block mt-10">
     <h3 class="text-2xl font-semibold mb-6">Alertas de Retorno</h3>
 
-    {% if alertas %}
     <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
             <table class="w-full divide-y divide-gray-200">
@@ -363,34 +362,28 @@
                         <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="bg-white divide-y divide-gray-100">
                     {% for alerta in alertas %}
                     <tr class="hover:bg-gray-50 transition-colors">
                         <td class="px-6 py-4 font-medium">{{ alerta.nome }}</td>
                         <td class="px-6 py-4 text-gray-600">{{ alerta.telefone }}</td>
-                        <td class="px-6 py-4">
-                            {% if alerta.data_retorno %}
-                                {{ alerta.data_retorno.strftime('%d/%m/%Y') }}
-                            {% endif %}
-                        </td>
+                        <td class="px-6 py-4 text-gray-600">{{ alerta.data_retorno }}</td>
                         <td class="px-6 py-4 text-gray-600">{{ alerta.descricao }}</td>
                         <td class="px-6 py-4">
-                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium">
                                 {{ alerta.status }}
                             </span>
                         </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-8 text-center text-gray-400">Nenhum alerta pendente.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-    {% else %}
-    <div class="bg-white rounded-3xl p-10 shadow-sm text-center text-gray-400">
-        <p class="text-4xl mb-3">🔔</p>
-        <p class="font-medium">Nenhum alerta pendente no momento.</p>
-    </div>
-    {% endif %}
 </div>
             </main>
         </div>
