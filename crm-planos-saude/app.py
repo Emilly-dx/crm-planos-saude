@@ -4,12 +4,20 @@ from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alerta
 
 app = Flask(__name__)
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/")
 def home():
     clientes = listar_todos_clientes()
     alertas = listar_alertas_pendentes()
     total_hoje = contar_alertas_hoje()
-    return render_template("Plano.html", clientes=clientes, alertas=alertas, total_hoje=total_hoje)
+    
+    return render_template("Plano.html", 
+                           clientes=clientes, 
+                           alertas=alertas, 
+                           total_hoje=total_hoje)
 
 @app.route("/clientes", methods=["POST"])
 def cadastrar_cliente():
@@ -39,4 +47,4 @@ def deletar_cliente(id):
         return f"Erro ao excluir cliente: {e}"
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)
