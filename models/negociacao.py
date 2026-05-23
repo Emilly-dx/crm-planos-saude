@@ -18,13 +18,14 @@ def listar_negociacoes():
 def salvar_negociacao(form):
     conn = conectar()
     cursor = conn.cursor()
+    valor = form.get("valor", "").replace(".", "").replace(",", ".") or None
     sql = """INSERT INTO negociacoes 
              (cliente_id, plano, valor, data, status) 
              VALUES (%s, %s, %s, %s, %s)"""
     valores = (
         form.get("cliente_id"),
         form.get("plano"),
-        form.get("valor"),
+        valor,
         form.get("data"),
         form.get("status")
     )
@@ -32,3 +33,12 @@ def salvar_negociacao(form):
     conn.commit()
     cursor.close()
     conn.close()
+
+def contar_negociacoes_abertas():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM negociacoes WHERE status = 'Em andamento'")
+    total = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return total

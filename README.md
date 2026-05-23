@@ -22,11 +22,13 @@ Responsável pelo desenvolvimento do frontend utilizando HTML e CSS, com foco na
 - MySQL
 - HTML
 - CSS
+- JavaScript
 
 ## Ferramentas
 - Git
 - GitHub
 - Visual Studio Code
+- ngrok (testes externos)
 
 ## Funcionalidades Implementadas
 
@@ -35,14 +37,27 @@ Responsável pelo desenvolvimento do frontend utilizando HTML e CSS, com foco na
 * Listagem dinâmica de clientes na interface
 * Integração completa entre frontend e backend
 * Atualização automática da tabela após inserção de dados
+* Autenticação real com email e senha (hash bcrypt via werkzeug)
+* Sessão segura com Flask Session
+* Proteção de rotas — acesso negado sem login
+* Logout funcional
+* Alteração de senha pelo próprio corretor
+* Listagem, edição inline e exclusão de clientes
+* Cadastro de negociações vinculadas a clientes
+* Cadastro de cobranças com status (Pago, Pendente, Atrasado)
+* Alertas de retorno agendados por cliente
+* Dashboard com métricas: total de clientes, negociações abertas, cobranças em dia e retornos do dia
+* Armazenamento persistente em banco de dados MySQL
+* Variáveis de ambiente via .env (segurança de credenciais)
+* Interface responsiva com suporte mobile (menu drawer)
+
 
 ## Funcionalidades em Desenvolvimento
 
-* Sistema de autenticação (login real)
-* Edição de clientes (Update)
-* Exclusão de clientes (Delete)
-* Dashboard com métricas e indicadores
-* Sistema de alertas e acompanhamento de retornos
+* Hospedagem na nuvem (Railway/Render)
+* Recuperação de senha via email (Flask-Mail)
+* Domínio personalizado
+* Atualização na função mobile
 
 ## Arquitetura e Paradigmas Utilizados
 
@@ -52,10 +67,9 @@ O projeto integra diferentes paradigmas de programação:
 
 Utilizada na definição das rotas e funções do backend (Flask).
 
-### Programação Orientada a Dados
+### A Programação Orientada a Objetos
 
-Aplicada na modelagem e manipulação do banco de dados MySQL.
-
+Aplicada na modelagem das entidades do sistema, como Cliente e Cobrança. Permite encapsulamento de dados e comportamentos.
 
 ## Estrutura do Projeto
 
@@ -66,6 +80,12 @@ MVP_plano_saudes/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
+├── .env                  (não versionado)
+├── criar_corretor.py     (script de setup inicial)
+│
+├── database/
+│   ├── __init__.py
+│   └── database.py
 │
 ├── models/
 │   ├── __init__.py
@@ -76,25 +96,42 @@ MVP_plano_saudes/
 │   └── negociacao.py
 │
 ├── routes/
-│   └── __init__.py
+│   ├── __init__.py
+│   ├── cliente.py
+│   ├── cobranca.py
+│   └── negociacao.py
 │
 ├── templates/
 │   ├── login.html
-│   └── plano.html
+│   └── Plano.html
 │
 ├── static/
-│   └── Plano.css
+│   ├── Plano.css
+│   └── js/
+│       ├── login.js
+│       └── meus_clientes.js
 │
-└── venv/ (não versionado)
+└── venv/                 (não versionado)
+
 ```
 
 ## Organização do Sistema
 
-Inicialmente, toda a lógica da aplicação estava concentrada no arquivo `app.py`. Após feedback recebido, foi realizada uma melhoria estrutural com a criação da pasta `models`, responsável por armazenar as entidades do sistema, tornando o código mais organizado e de fácil manutenção.
+Durante o desenvolvimento do projeto, a estrutura da aplicação passou por diversas melhorias para facilitar a manutenção, escalabilidade e organização do código.
 
-Também foi iniciada a separação das rotas em uma estrutura própria, visando uma arquitetura mais limpa. Essa implementação ainda está em andamento.
+Inicialmente, grande parte da lógica do sistema estava concentrada no arquivo `app.py`. Com a evolução do projeto, foi realizada uma refatoração estrutural, separando as responsabilidades da aplicação em módulos específicos.
 
-Na camada de frontend, os arquivos HTML estão organizados na pasta `templates`, atualmente divididos principalmente entre `login.html` e `plano.html`. Essa estrutura será refinada futuramente com uma separação mais detalhada das telas.
+A pasta `models` foi criada para organizar as entidades do sistema, como clientes, negociações, cobranças, alertas e corretores, permitindo uma estrutura mais próxima dos conceitos de Programação Orientada a Objetos (POO).
+
+Também foi implementada a pasta `routes`, responsável pela separação das rotas da aplicação em arquivos independentes, melhorando a organização do backend e facilitando futuras expansões do sistema.
+
+Na camada de persistência de dados, foi criada a pasta `database`, responsável pela configuração e gerenciamento da conexão com o banco de dados MySQL.
+
+No frontend, os arquivos HTML estão organizados na pasta `templates`, enquanto arquivos CSS e JavaScript estão separados na pasta `static`, seguindo a estrutura padrão utilizada pelo Flask.
+
+Além disso, o projeto utiliza variáveis de ambiente através do arquivo `.env`, aumentando a segurança no armazenamento de credenciais sensíveis, como informações do banco de dados e chave secreta da aplicação.
+
+Essa organização estrutural tornou o sistema mais modular, escalável e de fácil manutenção, permitindo maior facilidade na implementação de novas funcionalidades e correções futuras.
 
 
 ## Como Executar o Projeto
@@ -125,7 +162,16 @@ venv\Scripts\activate
 bash
 pip install -r requirements.txt
 
-### 4. Configurar o banco de dados
+### 5. Configurar o arquivo .env
+Crie um arquivo .env na raiz do projeto:
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=sua_senha
+DB_NAME=crm_saude
+SECRET_KEY=sua_chave_secreta
+
+
+### 6. Configurar o banco de dados
 
 Criar um banco no MySQL e executar:
 
@@ -144,7 +190,12 @@ CREATE TABLE clientes (
     cpf VARCHAR(20)
 );
 
-### 5. Executar a aplicação
+### 7. Cadastrar o corretor
+
+Edite o arquivo criar_corretor.py com nome, email e senha reais, depois execute:
+python criar_corretor.py
+
+### 8. Executar a aplicação
 
 bash
 python app.py
@@ -160,23 +211,36 @@ http://127.0.0.1:5000
 
 ### Etapa Atual
 
-* Implementação de autenticação completa
-* CRUD completo (Create, Read, Update, Delete)
-* Dashboard interativo
-* Melhorias de usabilidade e experiência do usuário
-* Estruturação das rotas do sistema (em andamento)
-* Melhor organização do frontend (templates)
+* Autenticação real com sessão Flask
+* Proteção de rotas
+* CRUD completo de clientes
+* Módulo de negociações
+* Módulo de cobranças
+* Alertas de retorno
+* Dashboard com métricas
+* Alteração de senha
+* Segurança com variáveis de ambiente
+
 
 ## Modelagem do Banco de Dados (Planejada)
 
-Além da tabela de clientes já implementada, o sistema está sendo planejado para incluir outras entidades, como:
+O sistema utiliza o banco de dados MySQL para armazenamento persistente das informações, organizado através de tabelas relacionais responsáveis pelo gerenciamento das funcionalidades da aplicação.
 
+Atualmente, o banco de dados é composto pelas seguintes entidades:
+
+- Clientes
+- Corretores
 - Negociações
 - Cobranças
 - Alertas de retorno
-- Usuários (login do corretor)
+
+A tabela `clientes` é responsável pelo armazenamento das informações principais dos clientes cadastrados no sistema, incluindo dados pessoais e informações utilizadas pelo corretor durante o atendimento.
+
+A tabela `corretores` gerencia os usuários autenticados da aplicação, armazenando nome, email e senha criptografada utilizando hash de segurança.
+
+As tabelas `negociacoes`, `cobrancas` e `alertas` possuem relacionamento com a tabela de clientes através de chaves estrangeiras, permitindo associar negociações, cobranças e retornos diretamente a cada cliente cadastrado.
+
+Essa estrutura relacional permitiu maior organização dos dados, melhor integridade das informações e facilidade para expansão futura do sistema.
 
 ## Status do Projeto
  Em desenvolvimento (projeto acadêmico)
-
-A versão atual contempla funcionalidades essenciais de cadastro e listagem de clientes, com evolução planejada para um sistema completo de CRM.
