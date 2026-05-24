@@ -18,12 +18,13 @@ def listar_cobrancas():
 def salvar_cobranca(form):
     conn = conectar()
     cursor = conn.cursor()
+    valor = form.get("valor", "").replace(".", "").replace(",", ".") or None
     sql = """INSERT INTO cobrancas 
              (cliente_id, valor, data_vencimento, status) 
              VALUES (%s, %s, %s, %s)"""
     valores = (
         form.get("cliente_id"),
-        form.get("valor"),
+        valor,
         form.get("data_vencimento"),
         form.get("status")
     )
@@ -31,3 +32,21 @@ def salvar_cobranca(form):
     conn.commit()
     cursor.close()
     conn.close()
+
+def contar_cobrancas_em_dia():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM cobrancas WHERE status != 'Atrasado'")
+    total = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return total
+
+def contar_cobrancas_atrasadas():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*), COALESCE(SUM(valor), 0) FROM cobrancas WHERE status = 'Atrasado'")
+    resultado = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    return {"total": resultado[0], "valor": float(resultado[1])}

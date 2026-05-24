@@ -13,25 +13,25 @@ def salvar_novo_cliente(dados):
     conn = conectar()
     cursor = conn.cursor()
     
-    # 1. Pegamos os dados vindo do HTML (atributo 'name')
-    # 2. Tratamos o campo grávida (sim vira 1, qualquer outra coisa vira 0)
     gravida = 1 if dados.get("gravida") == "sim" else 0
     
-    # SQL com os nomes REAIS das suas colunas no MySQL
+    # Converte vírgula para ponto nos campos decimais
+    peso = dados.get("peso_kg", "").replace(",", ".") or None
+    altura = dados.get("altura_cm", "").replace(",", ".") or None
+
     sql = """
     INSERT INTO clientes 
     (nome, telefone, email, status, peso_kg, altura_cm, gravida, data_nascimento, rg, cpf)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
     
-    # Valores organizados para o INSERT
     valores = (
         dados.get("nome"),
         dados.get("telefone"),
-        dados.get("email"), # Caso tenha esse campo no form, senão mande None
+        dados.get("email"),
         dados.get("status"),
-        dados.get("peso_kg"),
-        dados.get("altura_cm"),
+        peso,
+        altura,
         gravida,
         dados.get("data_nascimento"),
         dados.get("rg"),
@@ -39,16 +39,21 @@ def salvar_novo_cliente(dados):
     )
 
     cursor.execute(sql, valores)
-    novo_id = cursor.lastrowid #pega o ID gerado
+    novo_id = cursor.lastrowid
     conn.commit()
     cursor.close()
     conn.close()
-    return novo_id #devolve o ID
+    return novo_id
 
 def atualizar_cliente(id, dados):
     conn = conectar()
     cursor = conn.cursor()
     gravida = 1 if dados.get("gravida") == "sim" else 0
+
+    # Converte vírgula para ponto nos campos decimais
+    peso = dados.get("peso_kg", "").replace(",", ".") or None
+    altura = dados.get("altura_cm", "").replace(",", ".") or None
+
     sql = """
     UPDATE clientes SET
         nome = %s,
@@ -68,8 +73,8 @@ def atualizar_cliente(id, dados):
         dados.get("telefone"),
         dados.get("email"),
         dados.get("status"),
-        dados.get("peso_kg"),
-        dados.get("altura_cm"),
+        peso,
+        altura,
         gravida,
         dados.get("data_nascimento"),
         dados.get("rg"),
@@ -84,7 +89,6 @@ def atualizar_cliente(id, dados):
 def excluir_cliente(id):
     conn = conectar()
     cursor = conn.cursor()
-    # Exclui alertas vinculados primeiro (evita erro de chave estrangeira)
     cursor.execute("DELETE FROM alertas WHERE cliente_id = %s", (id,))
     cursor.execute("DELETE FROM clientes WHERE id = %s", (id,))
     conn.commit()
