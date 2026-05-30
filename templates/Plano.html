@@ -57,25 +57,24 @@
                     <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-handshake w-6 text-xl"></i><span>Negociações</span></a></li>
                     <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-dollar-sign w-6 text-xl"></i><span>Cobranças</span></a></li>
                     <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-bell w-6 text-xl"></i><span>Alertas de Retorno</span></a></li>
-                    <li><a href="#section-perfil" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-key w-6 text-xl"></i><span>Alterar Senha</span></a></li>
+                
                 </ul>
             </nav>
-            <div class="p-6 border-t border-gray-100">
-    <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-3xl">
-        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">👨‍💼</div>
-        <div class="flex-1">
-            <p class="font-semibold text-sm">Edson</p>
-            <p class="text-xs text-gray-500">Corretor Autônomo</p>
+        <div class="p-6 border-t border-gray-100">
+            <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-3xl hover:bg-green-100 transition-colors">
+                <a href="/configuracoes" class="flex items-center gap-3 flex-1">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">👨‍💼</div>
+                    <div>
+                        <p class="font-semibold text-sm">{{ corretor_nome or 'Corretor' }}</p>
+                        <p class="text-xs text-gray-500">Corretor Autônomo</p>
+                    </div>
+                </a>
+                <a href="#" onclick="logout()" class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
         </div>
-        <!-- Botão de Logout corrigido -->
-        <a href="#" onclick="logout()" 
-           class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
-            <i class="fa-solid fa-right-from-bracket"></i>
-        </a>
-    </div>
-</div>
-        </div>
-
+           </div> 
         <!-- CONTEÚDO PRINCIPAL -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <header class="h-16 bg-white border-b border-gray-200 px-8 flex items-center justify-between shadow-sm">
@@ -85,7 +84,7 @@
                            class="lg:hidden text-3xl text-gray-700 cursor-pointer hover:text-sky-600 transition-colors">
                         <i class="fa-solid fa-bars"></i>
                     </label>
-                    <h2 class="text-2xl font-semibold text-gray-700">Início</h2>
+                    <h2 id="page-title" class="text-2xl font-semibold text-gray-700">Início</h2>
                 </div>
                 <div class="flex items-center gap-6">
                     <input type="text" placeholder="Buscar cliente..." 
@@ -159,6 +158,8 @@
     </div>
 </div>
 
+</div>  <!-- fecha section-dashboard -->
+
                 <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
 <div id="section-clientes" class="section mt-10">
     <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
@@ -196,7 +197,7 @@
     <td class="px-5 py-4 view-mode">{{ cliente.cpf }}</td>
     <td class="px-5 py-4 view-mode">{{ cliente.rg }}</td>
     <td class="px-5 py-4 view-mode">{{ cliente.status }}</td>
-    <td class="px-5 py-4 view-mode">-</td>
+    <td class="px-5 py-4 view-mode">{{ cliente.data_retorno or '-' }}</td>
 
     <!-- MODO EDIÇÃO (formulário inline) -->
     <form action="/clientes/{{ cliente.id }}" method="POST" style="display:contents">
@@ -540,7 +541,7 @@
     {% endif %}
 </div>
 
-<div id="section-perfil" class="section hidden md:block mt-10">
+<div id="section-perfil" class="section hidden mt-10">
     <h3 class="text-2xl font-semibold mb-6">Alterar Senha</h3>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -648,13 +649,20 @@ function mascararAltura(input) {
 
 function mascararPeso(input) {
     let v = input.value.replace(/\D/g, '');
-    if (v.length >= 3) {
-        v = v.substring(0, 5);
-        v = v.replace(/^(\d+)(\d{2})/, '$1,$2');
+    if (v.length === 0) {
+        input.value = '';
+        return;
     }
-    input.value = v;
+    // Permite digitar livremente até 5 dígitos
+    if (v.length <= 3) {
+        input.value = v;
+    } else {
+        // Insere vírgula antes dos últimos 2 dígitos
+        let intPart = v.slice(0, v.length - 2);
+        let decPart = v.slice(-2);
+        input.value = intPart + ',' + decPart;
+    }
 }
-
 function mascararValor(input) {
     let v = input.value.replace(/\D/g, '');
     v = (parseInt(v) / 100).toFixed(2);

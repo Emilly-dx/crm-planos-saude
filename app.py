@@ -5,10 +5,10 @@ from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alerta
 from models.negociacao import listar_negociacoes, salvar_negociacao, contar_negociacoes_abertas
 from models.cobranca import listar_cobrancas, salvar_cobranca, contar_cobrancas_em_dia, contar_cobrancas_atrasadas
 from models.corretores import verificar_login, atualizar_senha, buscar_corretor_por_email
- 
+
 app = Flask(__name__)
 app.secret_key = "troque-por-algo-secreto-aqui"
- 
+
 # Protege rotas que exigem login
 def login_required(f):
     @wraps(f)
@@ -17,7 +17,7 @@ def login_required(f):
             return redirect(url_for("login"))
         return f(*args, **kwargs)
     return decorated
- 
+
 # Login
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -36,13 +36,13 @@ def login():
             flash("E-mail ou senha incorretos.", "erro")
             return redirect(url_for("login"))
     return render_template("login.html")
- 
+
 # Logout
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("login"))
- 
+
 # Dashboard
 @app.route("/")
 @login_required
@@ -52,12 +52,12 @@ def home():
     total_hoje = contar_alertas_hoje()
     negociacoes = listar_negociacoes()
     cobrancas = listar_cobrancas()
- 
+
     total_clientes = len(clientes)
     total_negociacoes_abertas = contar_negociacoes_abertas()
     total_cobrancas_em_dia = contar_cobrancas_em_dia()
     cobrancas_atrasadas = contar_cobrancas_atrasadas()
- 
+
     return render_template("Plano.html",
                            clientes=clientes,
                            alertas=alertas,
@@ -69,7 +69,15 @@ def home():
                            total_cobrancas_em_dia=total_cobrancas_em_dia,
                            cobrancas_atrasadas=cobrancas_atrasadas,
                            corretor_nome=session.get("corretor_nome"))
- 
+
+# Configurações
+@app.route("/configuracoes")
+@login_required
+def configuracoes():
+    return render_template("configuracoes.html",
+                           corretor_nome=session.get("corretor_nome"),
+                           corretor_email=session.get("corretor_email"))
+
 # Alterar Senha
 @app.route("/alterar-senha", methods=["POST"])
 @login_required
@@ -77,25 +85,25 @@ def alterar_senha():
     senha_atual = request.form.get("senha_atual")
     nova_senha = request.form.get("nova_senha")
     confirmar = request.form.get("confirmar_senha")
- 
+
     corretor = buscar_corretor_por_email(session.get("corretor_email"))
- 
+
     if not verificar_login(corretor["email"], senha_atual):
         flash("Senha atual incorreta.", "erro")
-        return redirect(url_for("home") + "#section-perfil")
- 
+        return redirect(url_for("configuracoes"))
+
     if nova_senha != confirmar:
         flash("As senhas não coincidem.", "erro")
-        return redirect(url_for("home") + "#section-perfil")
- 
+        return redirect(url_for("configuracoes"))
+
     if len(nova_senha) < 6:
         flash("A nova senha precisa ter pelo menos 6 caracteres.", "erro")
-        return redirect(url_for("home") + "#section-perfil")
- 
+        return redirect(url_for("configuracoes"))
+
     atualizar_senha(corretor["email"], nova_senha)
     flash("Senha alterada com sucesso!", "sucesso")
-    return redirect(url_for("home") + "#section-perfil")
- 
+    return redirect(url_for("configuracoes"))
+
 # Clientes
 @app.route("/clientes", methods=["POST"])
 @login_required
@@ -108,7 +116,7 @@ def cadastrar_cliente():
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao processar cadastro: {e}"
- 
+
 @app.route("/clientes/<int:id>", methods=["POST"])
 @login_required
 def editar_cliente(id):
@@ -117,7 +125,7 @@ def editar_cliente(id):
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao editar cliente: {e}"
- 
+
 @app.route("/clientes/<int:id>/excluir", methods=["POST"])
 @login_required
 def deletar_cliente(id):
@@ -126,8 +134,9 @@ def deletar_cliente(id):
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao excluir cliente: {e}"
- 
-# Negociaçõesapp.route("/negociacoes", methods=["POST"])
+
+# Negociações
+@app.route("/negociacoes", methods=["POST"])
 @login_required
 def cadastrar_negociacao():
     try:
@@ -135,7 +144,7 @@ def cadastrar_negociacao():
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao salvar negociação: {e}"
- 
+
 # Cobranças
 @app.route("/cobrancas", methods=["POST"])
 @login_required
@@ -145,7 +154,7 @@ def cadastrar_cobranca():
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao salvar cobrança: {e}"
- 
+
 # Inicialização
 if __name__ == "__main__":
     import os

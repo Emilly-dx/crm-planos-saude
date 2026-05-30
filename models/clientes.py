@@ -3,7 +3,12 @@ from database.database import conectar
 def listar_todos_clientes():
     conn = conectar()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM clientes")
+    cursor.execute("""
+        SELECT c.*, a.data_retorno 
+        FROM clientes c
+        LEFT JOIN alertas a ON a.cliente_id = c.id
+        ORDER BY c.id
+    """)
     clientes = cursor.fetchall()
     cursor.close()
     conn.close()

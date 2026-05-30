@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações • Plano de Saúde CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex items-center gap-4">
+            <a href="/" class="w-10 h-10 flex items-center justify-center rounded-2xl bg-gray-100 hover:bg-green-100 text-gray-600 hover:text-[#6aa54c] transition-colors">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-xl">🩺</div>
+                <div>
+                    <h1 class="text-lg font-bold text-[#6aa54c]">Plano de Saúde</h1>
+                    <p class="text-xs text-gray-400 -mt-0.5">Corretor Autônomo</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="max-w-4xl mx-auto px-6 py-10">
+
+        <!-- Título da página -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">Configurações</h2>
+            <p class="text-gray-500 mt-1">Gerencie as informações da sua conta</p>
+        </div>
+
+        <!-- Card de perfil -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm mb-6 flex items-center gap-5">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-4xl">👨‍💼</div>
+            <div>
+                <p class="text-lg font-semibold text-gray-800">{{ corretor_nome }}</p>
+                <p class="text-sm text-gray-400">{{ corretor_email }}</p>
+                <span class="inline-block mt-1 px-3 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">Corretor Autônomo</span>
+            </div>
+        </div>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-6 px-6 py-4 rounded-2xl text-sm font-medium
+                        {% if category == 'erro' %}bg-red-100 text-red-700 border border-red-200
+                        {% else %}bg-green-100 text-green-700 border border-green-200{% endif %}">
+                        <i class="fa-solid {% if category == 'erro' %}fa-circle-xmark{% else %}fa-circle-check{% endif %} mr-2"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Card alterar senha -->
+        <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="px-8 py-5 border-b border-gray-100 flex items-center gap-3">
+                <div class="w-9 h-9 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-key text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800">Alterar Senha</h3>
+                    <p class="text-xs text-gray-400">Mantenha sua conta segura com uma senha forte</p>
+                </div>
+            </div>
+
+            <form action="/alterar-senha" method="POST" class="px-8 py-6 space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Senha atual</label>
+                    <div class="relative">
+                        <input type="password" name="senha_atual" id="senha_atual" required
+                               class="w-full border border-gray-200 rounded-2xl px-5 py-3.5 pr-12 focus:outline-none focus:border-[#6aa54c] transition-colors text-sm">
+                        <button type="button" onclick="toggleSenha('senha_atual', 'eye1')"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-eye text-sm" id="eye1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nova senha</label>
+                    <div class="relative">
+                        <input type="password" name="nova_senha" id="nova_senha" required
+                               class="w-full border border-gray-200 rounded-2xl px-5 py-3.5 pr-12 focus:outline-none focus:border-[#6aa54c] transition-colors text-sm">
+                        <button type="button" onclick="toggleSenha('nova_senha', 'eye2')"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-eye text-sm" id="eye2"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1.5">Mínimo de 6 caracteres</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirmar nova senha</label>
+                    <div class="relative">
+                        <input type="password" name="confirmar_senha" id="confirmar_senha" required
+                               class="w-full border border-gray-200 rounded-2xl px-5 py-3.5 pr-12 focus:outline-none focus:border-[#6aa54c] transition-colors text-sm">
+                        <button type="button" onclick="toggleSenha('confirmar_senha', 'eye3')"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-eye text-sm" id="eye3"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex gap-3">
+                    <button type="submit"
+                            class="flex-1 bg-[#6aa54c] hover:bg-emerald-700 text-white py-3.5 rounded-2xl font-semibold text-sm transition-colors">
+                        <i class="fa-solid fa-check mr-2"></i>Salvar nova senha
+                    </button>
+                    <a href="/"
+                       class="px-6 py-3.5 rounded-2xl border border-gray-200 text-gray-600 hover:bg-gray-50 font-medium text-sm transition-colors flex items-center">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Zona de logout -->
+        <div class="mt-6 bg-white rounded-3xl shadow-sm overflow-hidden">
+            <div class="px-8 py-5 border-b border-gray-100 flex items-center gap-3">
+                <div class="w-9 h-9 bg-red-100 text-red-500 rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800">Sair da conta</h3>
+                    <p class="text-xs text-gray-400">Encerrar sessão no sistema</p>
+                </div>
+            </div>
+            <div class="px-8 py-5">
+                <a href="/logout"
+                   class="inline-flex items-center gap-2 px-6 py-3 bg-red-50 hover:bg-red-100 text-red-600 font-medium text-sm rounded-2xl transition-colors">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Encerrar sessão
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function toggleSenha(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+    </script>
+
+</body>
+</html>
