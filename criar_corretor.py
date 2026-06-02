@@ -1,8 +1,8 @@
 from models.corretores import criar_corretor
 
-nome  = "Seu Nome"
-email = "seuemail@email.com"
-senha = "SuaSenhaForte123!"
+nome  = "Edson"
+email = "edsonfernandes.corretor64@gmail.com"
+senha = "Planodesaude2026*"
 
 sucesso = criar_corretor(nome, email, senha)
 
