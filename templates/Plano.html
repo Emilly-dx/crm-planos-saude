@@ -591,17 +591,17 @@
             window.location.replace('/logout');
         }
 
-        // Opcional: muda o título da página conforme a seção
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('page-title').textContent = link.textContent.trim();
-            });
-        });
+        function logout() {
+            window.location.replace('/logout');
+        }
 
-        // Opcional: muda o título da página conforme a seção (melhoria)
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                document.getElementById('page-title').textContent = link.textContent.trim();
+                const pageTitle = document.getElementById('page-title');
+                if (pageTitle) pageTitle.textContent = link.textContent.trim();
+                
+                // Fecha o menu mobile
+                document.getElementById('mobile-sidebar').checked = false;
             });
         });
     </script>
