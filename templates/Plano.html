@@ -161,7 +161,7 @@
 </div>  <!-- fecha section-dashboard -->
 
                 <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
-<div id="section-clientes" class="section hidden mt-10">
+<div id="section-clientes" class="section mt-10">
     <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
 
     <!-- Tabela com scroll horizontal + colunas expandidas -->
@@ -591,33 +591,13 @@
             window.location.replace('/logout');
         }
 
-        // Navegação por seções
-        const allSections = document.querySelectorAll('.section');
-        const allNavLinks = document.querySelectorAll('.nav-link');
-
-        allNavLinks.forEach(link => {
+        document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                const targetId = link.getAttribute('href').replace('#', '');
-                const target = document.getElementById(targetId);
-
-                // Atualiza título
                 const pageTitle = document.getElementById('page-title');
                 if (pageTitle) pageTitle.textContent = link.textContent.trim();
-
-                // Esconde todas as seções
-                allSections.forEach(s => s.classList.add('hidden'));
-
-                // Mostra só a clicada
-                if (target) target.classList.remove('hidden');
-
-                // Fecha menu mobile
                 document.getElementById('mobile-sidebar').checked = false;
-
-                // Volta ao topo
-                window.scrollTo(0, 0);
             });
         });
-
     </script>
 
     <script>
