@@ -591,19 +591,33 @@
             window.location.replace('/logout');
         }
 
-        function logout() {
-            window.location.replace('/logout');
-        }
+        // Navegação por seções
+        const allSections = document.querySelectorAll('.section');
+        const allNavLinks = document.querySelectorAll('.nav-link');
 
-        document.querySelectorAll('.nav-link').forEach(link => {
+        allNavLinks.forEach(link => {
             link.addEventListener('click', () => {
+                const targetId = link.getAttribute('href').replace('#', '');
+                const target = document.getElementById(targetId);
+
+                // Atualiza título
                 const pageTitle = document.getElementById('page-title');
                 if (pageTitle) pageTitle.textContent = link.textContent.trim();
-                
-                // Fecha o menu mobile
+
+                // Esconde todas as seções
+                allSections.forEach(s => s.classList.add('hidden'));
+
+                // Mostra só a clicada
+                if (target) target.classList.remove('hidden');
+
+                // Fecha menu mobile
                 document.getElementById('mobile-sidebar').checked = false;
+
+                // Volta ao topo
+                window.scrollTo(0, 0);
             });
         });
+          
     </script>
 
     <script>
