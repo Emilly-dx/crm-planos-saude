@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plano de Saúde • CRM Corretor Autônomo</title>
-    <!-- Tailwind CSS CDN (essencial para o estilo moderno) -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,659 +12,548 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- CSS separado -->
-
-   <link rel="stylesheet" href="{{ url_for('static', filename='Plano.css') }}"></head>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        /* Otimizações para mobile */
+        @media (max-width: 768px) {
+            .table-responsive { font-size: 0.875rem; }
+            .table-responsive td, .table-responsive th { padding: 0.75rem 0.5rem; }
+        }
+    </style>
+</head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-<!-- ==================== PÁGINA PRINCIPAL (só aparece após "login") ==================== -->
-        <div id="main-app" class="min-h-screen flex h-screen overflow-hidden">
-        <!-- CHECKBOX HACK PARA MENU MOBILE (drawer) - NÃO ALTERA NADA NO DESKTOP -->
-        <input type="checkbox" id="mobile-sidebar" class="peer hidden">
+<div id="main-app" class="min-h-screen flex flex-col lg:flex-row overflow-hidden">
+    <!-- CHECKBOX HACK PARA MENU MOBILE -->
+    <input type="checkbox" id="mobile-sidebar" class="peer hidden">
 
-        <!-- OVERLAY MOBILE (só aparece no mobile quando menu aberto) -->
-        <div class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden peer-checked:block"></div>
-        
-        <!-- SIDEBAR (layout desktop inalterado + versão mobile drawer pura CSS) -->
-        <div class="w-72 bg-white border-r border-gray-200 flex flex-col shadow-xl 
-                    fixed inset-y-0 left-0 z-50 
-                    -translate-x-full peer-checked:translate-x-0 
-                    lg:translate-x-0 lg:static 
-                    transition-transform duration-300">
-                
-            <div class="px-6 py-0 border-b border-gray-100 flex items-center gap-3">
-                <div class="px-8 py-8 border-b border-gray-100 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-3xl font-bold">🩺</div>
-        <div>
-            <h1 class="text-3xl font-bold tracking-tight text-[#6aa54c]">Plano de Saúde</h1>
-            <p class="text-xs text-emerald-500 -mt-1">Corretor Autônomo</p>
-        </div>
-    </div>
+    <!-- OVERLAY MOBILE -->
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden peer-checked:block"></div>
     
-    <!-- Botão fechar (só mobile) -->
-    <label for="mobile-sidebar" 
-           class="fixed top-4 left-4 z-50 lg:hidden text-3xl text-gray-700 cursor-pointer hover:text-red-600 transition-colors">
-       <i class="fa-solid fa-xmark"></i>
-    </label> 
-</div>
+    <!-- SIDEBAR -->
+    <div class="w-full lg:w-72 bg-white border-b lg:border-r border-gray-200 flex flex-col shadow-xl 
+                lg:static fixed inset-y-0 left-0 z-50 
+                -translate-x-full peer-checked:translate-x-0 
+                lg:translate-x-0 lg:static 
+                transition-transform duration-300 lg:h-screen">
                 
+        <!-- LOGO E HEADER -->
+        <div class="px-6 py-6 border-b border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-2xl lg:text-3xl font-bold">🩺</div>
+                <div>
+                    <h1 class="text-xl lg:text-3xl font-bold tracking-tight text-[#6aa54c]">Plano de Saúde</h1>
+                    <p class="text-xs text-emerald-500 -mt-1">Corretor Autônomo</p>
+                </div>
             </div>
-            <nav class="flex-1 px-4 py-6 overflow-y-auto">
-                <ul class="space-y-2">
-                    <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-house w-6 text-xl"></i><span>Início</span></a></li>
-                    <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-users w-6 text-xl"></i><span>Meus Clientes</span></a></li>
-                    <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-handshake w-6 text-xl"></i><span>Negociações</span></a></li>
-                    <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-dollar-sign w-6 text-xl"></i><span>Cobranças</span></a></li>
-                    <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-6 py-4 text-lg font-medium rounded-3xl hover:bg-green-200"><i class="fa-solid fa-bell w-6 text-xl"></i><span>Alertas de Retorno</span></a></li>
-                
-                </ul>
-            </nav>
-        <div class="p-6 border-t border-gray-100">
-            <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-3xl hover:bg-green-100 transition-colors">
-                <a href="/configuracoes" class="flex items-center gap-3 flex-1">
-                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl">👨‍💼</div>
-                    <div>
-                        <p class="font-semibold text-sm">{{ corretor_nome or 'Corretor' }}</p>
-                        <p class="text-xs text-gray-500">Corretor Autônomo</p>
+            
+            <!-- Botão fechar (só mobile) -->
+            <label for="mobile-sidebar" 
+                   class="lg:hidden text-2xl text-gray-700 cursor-pointer hover:text-red-600 transition-colors">
+               <i class="fa-solid fa-xmark"></i>
+            </label> 
+        </div>
+            
+        <!-- NAVEGAÇÃO -->
+        <nav class="flex-1 px-4 py-6 overflow-y-auto">
+            <ul class="space-y-1">
+                <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-house w-5 lg:w-6 text-lg lg:text-xl"></i><span>Início</span></a></li>
+                <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-users w-5 lg:w-6 text-lg lg:text-xl"></i><span>Meus Clientes</span></a></li>
+                <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-handshake w-5 lg:w-6 text-lg lg:text-xl"></i><span>Negociações</span></a></li>
+                <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-dollar-sign w-5 lg:w-6 text-lg lg:text-xl"></i><span>Cobranças</span></a></li>
+                <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-bell w-5 lg:w-6 text-lg lg:text-xl"></i><span>Alertas</span></a></li>
+            </ul>
+        </nav>
+
+        <!-- PERFIL -->
+        <div class="p-4 lg:p-6 border-t border-gray-100">
+            <div class="flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 bg-gray-50 rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors">
+                <a href="/configuracoes" class="flex items-center gap-2 lg:gap-3 flex-1 min-w-0">
+                    <div class="w-8 h-8 lg:w-10 lg:h-10 bg-emerald-100 text-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center text-lg lg:text-2xl flex-shrink-0">👨‍💼</div>
+                    <div class="min-w-0">
+                        <p class="font-semibold text-xs lg:text-sm truncate">{{ corretor_nome or 'Corretor' }}</p>
+                        <p class="text-xs text-gray-500">Autônomo</p>
                     </div>
                 </a>
-                <a href="#" onclick="logout()" class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
+                <a href="#" onclick="logout()" class="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors flex-shrink-0">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </a>
             </div>
         </div>
-           </div> 
-        <!-- CONTEÚDO PRINCIPAL -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="h-16 bg-white border-b border-gray-200 px-8 flex items-center justify-between shadow-sm">
-                <div class="flex items-center gap-4">
-                    <!-- Botão hambúrguer (só visível em mobile) -->
-                    <label for="mobile-sidebar" 
-                           class="lg:hidden text-3xl text-gray-700 cursor-pointer hover:text-sky-600 transition-colors">
-                        <i class="fa-solid fa-bars"></i>
-                    </label>
-                    <h2 id="page-title" class="text-2xl font-semibold text-gray-700">Início</h2>
-                </div>
-                <div class="flex items-center gap-6">
-                    <input type="text" placeholder="Buscar cliente..." 
-                           class="w-80 bg-gray-100 border border-transparent focus:border-[#6aa54c] rounded-3xl px-6 py-3 text-sm focus:outline-none">
-                    <div class="text-right">
-                    </div>
-                </div>
-            </header>
-
-            <main class="flex-1 overflow-auto p-8 bg-gray-50">
-                <!-- DASHBOARD -->
-                <!-- DASHBOARD MELHORADO -->
-<div id="section-dashboard" class="section">
-
- <!-- KPIs Principais -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-emerald-200">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500">Clientes Cadastrados</p>
-                <p class="text-5xl font-bold text-sky-600 mt-2">{{ total_clientes }}</p>
+    </div> 
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- HEADER -->
+        <header class="h-14 lg:h-16 bg-white border-b border-gray-200 px-4 lg:px-8 flex items-center justify-between shadow-sm">
+            <div class="flex items-center gap-4 min-w-0 flex-1">
+                <!-- Botão hambúrguer (mobile) -->
+                <label for="mobile-sidebar" 
+                       class="lg:hidden text-2xl text-gray-700 cursor-pointer hover:text-sky-600 transition-colors flex-shrink-0">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+                <h2 id="page-title" class="text-lg lg:text-2xl font-semibold text-gray-700 truncate">Início</h2>
             </div>
-            <div class="w-14 h-14 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl">👥</div>
-        </div>
-        <div class="mt-6 text-emerald-600 text-sm font-medium">
-            Total no sistema
-        </div>
-    </div>
-
-    <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-amber-200">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500">Negociações Abertas</p>
-                <p class="text-5xl font-bold text-amber-600 mt-2">{{ total_negociacoes_abertas }}</p>
+            <div class="flex items-center gap-2 lg:gap-6 flex-shrink-0">
+                <input type="text" placeholder="Buscar..." 
+                       class="hidden md:block w-48 lg:w-80 bg-gray-100 border border-transparent focus:border-[#6aa54c] rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-3 text-sm focus:outline-none">
             </div>
-            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl">🤝</div>
-        </div>
-        <div class="mt-6 text-amber-600 text-sm font-medium">
-            Em andamento
-        </div>
-    </div>
+        </header>
 
-    <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-emerald-200">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500">Cobranças em Dia</p>
-                <p class="text-5xl font-bold text-emerald-600 mt-2">{{ total_cobrancas_em_dia }}</p>
-            </div>
-            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl">💰</div>
-        </div>
-        <div class="mt-6 text-red-500 text-sm font-medium">
-            {% if cobrancas_atrasadas.total > 0 %}
-                {{ cobrancas_atrasadas.total }} atrasadas • R$ {{ "%.2f"|format(cobrancas_atrasadas.valor) }}
-            {% else %}
-                Nenhuma atrasada 
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-violet-200">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm text-gray-500">Retornos Hoje</p>
-                <p class="text-5xl font-bold text-violet-600 mt-2">{{ total_hoje }}</p>
-            </div>
-            <div class="w-14 h-14 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-3xl">🛎️</div>
-        </div>
-        <a href="#section-alertas" class="mt-6 inline-block text-violet-600 hover:underline text-sm font-medium">
-            Ver todos os alertas →
-        </a>
-    </div>
-</div>
-
-</div>  <!-- fecha section-dashboard -->
-
-                <!-- CLIENTES (formulário + tabela com botões de editar/excluir) -->
-<div id="section-clientes" class="section mt-10">
-    <h3 class="text-2xl font-semibold mb-6">Meus Clientes</h3>
-
-    <!-- Tabela com scroll horizontal + colunas expandidas -->
-    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-            <table class="w-full min-w-[1400px] divide-y divide-gray-200">
-                <thead class="bg-gray-50 sticky top-0">
-                    <tr>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[160px]">Nome</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[130px]">Telefone</th>
-                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[90px]">Grávida?</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">Nascimento</th>
-                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[80px]">Altura</th>
-                        <th class="px-5 py-4 text-center text-sm font-semibold text-gray-700 min-w-[80px]">Peso</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[130px]">CPF</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">RG</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[120px]">Status</th>
-                        <th class="px-5 py-4 text-left text-sm font-semibold text-gray-700 min-w-[110px]">Retorno</th>
-                        <th class="px-5 py-4 text-right text-sm font-semibold text-gray-700 min-w-[100px]">Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    {% for cliente in clientes %}
-<tr class="hover:bg-gray-50 transition-colors" id="linha-{{ cliente.id }}">
-
-    <!-- MODO VISUALIZAÇÃO -->
-    <td class="px-5 py-4 view-mode">{{ cliente.nome }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.telefone }}</td>
-    <td class="px-5 py-4 text-center view-mode">{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.data_nascimento }}</td>
-    <td class="px-5 py-4 text-center view-mode">{{ cliente.altura_cm }}</td>
-    <td class="px-5 py-4 text-center view-mode">{{ cliente.peso_kg }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.cpf }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.rg }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.status }}</td>
-    <td class="px-5 py-4 view-mode">{{ cliente.data_retorno or '-' }}</td>
-
-    <!-- MODO EDIÇÃO (formulário inline) -->
-    <form action="/clientes/{{ cliente.id }}" method="POST" style="display:contents">
-        <td class="px-3 py-2 edit-mode hidden"><input name="nome" value="{{ cliente.nome }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden"><input name="telefone" value="{{ cliente.telefone }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden text-center">
-            <select name="gravida" class="border rounded-xl px-3 py-2 text-sm">
-                <option value="sim" {{ 'selected' if cliente.gravida == 1 }}>Sim</option>
-                <option value="nao" {{ 'selected' if cliente.gravida == 0 }}>Não</option>
-            </select>
-        </td>
-        <td class="px-3 py-2 edit-mode hidden"><input type="date" name="data_nascimento" value="{{ cliente.data_nascimento }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden"><input type="number" name="altura_cm" value="{{ cliente.altura_cm }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden"><input type="number" name="peso_kg" value="{{ cliente.peso_kg }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden"><input name="cpf" value="{{ cliente.cpf }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden"><input name="rg" value="{{ cliente.rg }}" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-        <td class="px-3 py-2 edit-mode hidden">
-            <select name="status" class="border rounded-xl px-3 py-2 text-sm">
-                <option {{ 'selected' if cliente.status == 'Interessado' }}>Interessado</option>
-                <option {{ 'selected' if cliente.status == 'Em negociação' }}>Em negociação</option>
-                <option {{ 'selected' if cliente.status == 'Fechado' }}>Fechado</option>
-                <option {{ 'selected' if cliente.status == 'Perdido' }}>Perdido</option>
-            </select>
-        </td>
-        <td class="px-3 py-2 edit-mode hidden"><input type="date" name="data_retorno" value="" class="border rounded-xl px-3 py-2 w-full text-sm"></td>
-
-        <!-- AÇÕES -->
-        <td class="px-5 py-4 text-right">
-            <div class="flex items-center justify-end gap-3">
-                <!-- Botão editar / salvar -->
-                <button type="button" 
-                        data-id="{{ cliente.id }}"
-                        class="btn-editar text-sky-600 hover:text-sky-800 transition-colors">
-                    <i class="fa-solid fa-pen text-lg"></i>
-                </button>
-                <button type="submit"
-                        class="btn-salvar-{{ cliente.id }} hidden text-emerald-600 hover:text-emerald-800 transition-colors">
-                    <i class="fa-solid fa-check text-lg"></i>
-                </button>
-                <button type="button"
-                        data-id="{{ cliente.id }}"
-                        class="btn-cancelar hidden text-gray-400 hover:text-gray-600 transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-
-                <!-- Botão excluir -->
-                <button type="button" 
-                        onclick="if(confirm('Excluir {{ cliente.nome }}? Os alertas vinculados também serão removidos.')) { 
-                            fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); 
-                        }"
-                        class="text-red-500 hover:text-red-700 transition-colors">
-                    <i class="fa-solid fa-trash text-lg"></i>
-                </button>
-            </div>
-        </td>
-    </form>
-</tr>
-{% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-            <!-- Formulário de cadastro -->
-            <div class="mt-10 bg-white rounded-3xl p-8 shadow-sm">
-                <h4 class="font-semibold mb-6">Novo Cliente</h4>
-                <form action="/clientes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Nome completo</label>
-                        <input type="text" name="nome" id="nome" required class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Telefone / WhatsApp</label>
-                        <input type="tel" name="telefone" id="telefone" required
-                            placeholder="(99) 99999-9999"
-                            maxlength="15"
-                            oninput="mascararTelefone(this)"
-                            class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Está grávida?</label>
-                        <select name="gravida" id="gravida" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                            <option value="sim">Sim</option>
-                            <option value="nao">Não</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">RG</label>
-                        <input type="text" name="rg" id="rg" placeholder="00.000.000-0"
-                            oninput="mascararRG(this)"
-                            class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">CPF</label>
-                        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" maxlength="14"
-                            oninput="mascararCPF(this)"
-                            class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium mb-3">Dados físicos</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                            <div>
-                                <label class="block text-sm text-gray-600 mb-2">Data de nascimento</label>
-                                <input type="date" name="data_nascimento"
-                                    class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 overflow-auto p-4 lg:p-8 bg-gray-50">
+            
+            <!-- ============ DASHBOARD ============ -->
+            <div id="section-dashboard" class="section">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+                    <!-- Card 1: Clientes -->
+                    <div class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-sky-200">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs lg:text-sm text-gray-500">Clientes</p>
+                                <p class="text-3xl lg:text-5xl font-bold text-sky-600 mt-1 lg:mt-2">{{ total_clientes }}</p>
                             </div>
-                            <div>
-                                <label class="block text-sm text-gray-600 mb-2">Altura (ex: 1,65)</label>
-                                <input type="text" name="altura_cm" placeholder="ex: 1,65"
-                                    maxlength="4" oninput="mascararAltura(this)"
-                                    class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+                            <div class="w-10 h-10 lg:w-14 lg:h-14 bg-sky-100 text-sky-600 rounded-lg lg:rounded-2xl flex items-center justify-center text-2xl lg:text-3xl flex-shrink-0">👥</div>
+                        </div>
+                        <div class="mt-3 lg:mt-6 text-emerald-600 text-xs lg:text-sm font-medium">Total no sistema</div>
+                    </div>
+
+                    <!-- Card 2: Negociações -->
+                    <div class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-amber-200">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs lg:text-sm text-gray-500">Negociações</p>
+                                <p class="text-3xl lg:text-5xl font-bold text-amber-600 mt-1 lg:mt-2">{{ total_negociacoes_abertas }}</p>
                             </div>
-                            <div>
-                                <label class="block text-sm text-gray-600 mb-2">Peso (ex: 62,5)</label>
-                                <input type="text" name="peso_kg" placeholder="ex: 62,5"
-                                    maxlength="6" oninput="mascararPeso(this)"
-                                    class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:border-sky-500">
+                            <div class="w-10 h-10 lg:w-14 lg:h-14 bg-amber-100 text-amber-600 rounded-lg lg:rounded-2xl flex items-center justify-center text-2xl lg:text-3xl flex-shrink-0">🤝</div>
+                        </div>
+                        <div class="mt-3 lg:mt-6 text-amber-600 text-xs lg:text-sm font-medium">Em andamento</div>
+                    </div>
+
+                    <!-- Card 3: Cobranças -->
+                    <div class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-emerald-200">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs lg:text-sm text-gray-500">Cobranças</p>
+                                <p class="text-3xl lg:text-5xl font-bold text-emerald-600 mt-1 lg:mt-2">{{ total_cobrancas_em_dia }}</p>
                             </div>
+                            <div class="w-10 h-10 lg:w-14 lg:h-14 bg-emerald-100 text-emerald-600 rounded-lg lg:rounded-2xl flex items-center justify-center text-2xl lg:text-3xl flex-shrink-0">💰</div>
+                        </div>
+                        <div class="mt-3 lg:mt-6 text-red-500 text-xs lg:text-sm font-medium">
+                            {% if cobrancas_atrasadas.total > 0 %}
+                                {{ cobrancas_atrasadas.total }} atrasadas
+                            {% else %}
+                                Nenhuma atrasada 
+                            {% endif %}
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Status da negociação</label>
-                        <select name="status" id="status" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                            <option>Interessado</option>
-                            <option>Em negociação</option>
-                            <option>Fechado</option>
-                            <option>Perdido</option>
-                        </select>
+
+                    <!-- Card 4: Alertas -->
+                    <div class="bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm hover:shadow-md transition-all border border-transparent hover:border-violet-200">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs lg:text-sm text-gray-500">Retornos Hoje</p>
+                                <p class="text-3xl lg:text-5xl font-bold text-violet-600 mt-1 lg:mt-2">{{ total_hoje }}</p>
+                            </div>
+                            <div class="w-10 h-10 lg:w-14 lg:h-14 bg-violet-100 text-violet-600 rounded-lg lg:rounded-2xl flex items-center justify-center text-2xl lg:text-3xl flex-shrink-0">🛎️</div>
+                        </div>
+                        <a href="#section-alertas" class="mt-3 lg:mt-6 inline-block text-violet-600 hover:underline text-xs lg:text-sm font-medium">
+                            Ver todos →
+                        </a>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Data de retorno</label>
-                        <input type="date" name="data_retorno" id="data_retorno" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    </div>
-                    <button type="submit"
-                            class="btn col-span-1 md:col-span-2 mt-6 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
-                        Salvar Cliente
-                    </button>
-                </form>
-            </div>
-
-<!-- NEGOCIAÇÕES -->
-<div id="section-negociacoes" class="section mt-10">
-    <h3 class="text-2xl font-semibold mb-6">Negociações</h3>
-
-    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-            <table class="w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Cliente</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Plano</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Valor</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Data</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    {% for neg in negociacoes %}
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium">{{ neg.nome }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ neg.plano }}</td>
-                        <td class="px-6 py-4 text-gray-600">R$ {{ "%.2f"|format(neg.valor) }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ neg.data }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">
-                                {{ neg.status }}
-                            </span>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="5" class="px-6 py-8 text-center text-gray-400">Nenhuma negociação cadastrada.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Formulário nova negociação -->
-    <div class="mt-8 bg-white rounded-3xl p-8 shadow-sm">
-        <h4 class="font-semibold mb-6">Nova Negociação</h4>
-        <form action="/negociacoes" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-sm font-medium mb-2">Cliente</label>
-                <select name="cliente_id" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Plano</label>
-                <input type="text" name="plano" placeholder="ex: Plano Ouro Unimed"
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Valor (R$)</label>
-                <input type="text" name="valor" placeholder="ex: 350,00"
-                        maxlength="10" oninput="mascararValor(this)"
-                        class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Data</label>
-                <input type="date" name="data"
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-            </div>
-            <div class="md:col-span-2">
-                <label class="block text-sm font-medium mb-2">Status</label>
-                <select name="status" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    <option>Em andamento</option>
-                    <option>Fechado</option>
-                    <option>Perdido</option>
-                </select>
-            </div>
-            <button type="submit"
-                    class="btn md:col-span-2 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
-                Salvar Negociação
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- COBRANÇAS -->
-<div id="section-cobrancas" class="section mt-10">
-    <h3 class="text-2xl font-semibold mb-6">Cobranças</h3>
-
-    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-            <table class="w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Cliente</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Valor</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Vencimento</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    {% for cob in cobrancas %}
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium">{{ cob.nome }}</td>
-                        <td class="px-6 py-4 text-gray-600">R$ {{ "%.2f"|format(cob.valor) }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ cob.data_vencimento }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 rounded-full text-xs font-medium
-                                {% if cob.status == 'Pago' %}bg-emerald-100 text-emerald-700
-                                {% elif cob.status == 'Atrasado' %}bg-red-100 text-red-700
-                                {% else %}bg-amber-100 text-amber-700{% endif %}">
-                                {{ cob.status }}
-                            </span>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="4" class="px-6 py-8 text-center text-gray-400">Nenhuma cobrança cadastrada.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Formulário nova cobrança -->
-    <div class="mt-8 bg-white rounded-3xl p-8 shadow-sm">
-        <h4 class="font-semibold mb-6">Nova Cobrança</h4>
-        <form action="/cobrancas" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-sm font-medium mb-2">Cliente</label>
-                <select name="cliente_id" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Valor (R$)</label>
-                <input type="text" name="valor" placeholder="ex: 350,00"
-                       maxlength="10" oninput="mascararValor(this)"
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Data de Vencimento</label>
-                <input type="date" name="data_vencimento"
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Status</label>
-                <select name="status" class="w-full border border-gray-300 rounded-3xl px-6 py-4">
-                    <option>Pendente</option>
-                    <option>Pago</option>
-                    <option>Atrasado</option>
-                </select>
-            </div>
-            <button type="submit"
-                    class="btn md:col-span-2 bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold hover:bg-emerald-700">
-                Salvar Cobrança
-            </button>
-        </form>
-    </div>
-</div>
-
-<div id="section-alertas" class="section mt-10">
-    <h3 class="text-2xl font-semibold mb-6">Alertas de Retorno</h3>
-
-    {% if alertas %}
-    <div class="bg-white rounded-3xl overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-            <table class="w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Cliente</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Telefone</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Data de Retorno</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Descrição</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    {% for alerta in alertas %}
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-medium">{{ alerta.nome }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ alerta.telefone }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ alerta.data_retorno }}</td>
-                        <td class="px-6 py-4 text-gray-600">{{ alerta.descricao }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium">
-                                {{ alerta.status }}
-                            </span>
-                        </td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="5" class="px-6 py-8 text-center text-gray-400">Nenhum alerta pendente.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endif %}
-</div>
-
-<div id="section-perfil" class="section hidden mt-10">
-    <h3 class="text-2xl font-semibold mb-6">Alterar Senha</h3>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="mb-6 px-6 py-4 rounded-2xl text-sm font-medium
-                    {% if category == 'erro' %}bg-red-100 text-red-700 border border-red-200
-                    {% else %}bg-green-100 text-green-700 border border-green-200{% endif %}">
-                    {{ message }}
                 </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+            </div>
 
-    <div class="bg-white rounded-3xl p-8 shadow-sm max-w-md">
-        <form action="/alterar-senha" method="POST" class="space-y-6">
-            <div>
-                <label class="block text-sm font-medium mb-2">Senha atual</label>
-                <input type="password" name="senha_atual" required
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:outline-none focus:border-emerald-500">
+            <!-- ============ CLIENTES ============ -->
+            <div id="section-clientes" class="section mt-8 lg:mt-10">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-4 lg:mb-6">Meus Clientes</h3>
+
+                <!-- TABELA RESPONSIVA -->
+                <div class="bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto hide-scrollbar">
+                        <table class="w-full divide-y divide-gray-200 table-responsive">
+                            <thead class="bg-gray-50 sticky top-0">
+                                <tr>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Nome</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Telefone</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Grávida?</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden md:table-cell">Nascimento</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">Altura</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">Peso</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">CPF</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden xl:table-cell">RG</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Status</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-right text-xs lg:text-sm font-semibold text-gray-700">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                {% for cliente in clientes %}
+                                <tr class="hover:bg-gray-50 transition-colors" id="linha-{{ cliente.id }}">
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base font-medium">{{ cliente.nome }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base">{{ cliente.telefone }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden sm:table-cell">{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden md:table-cell">{{ cliente.data_nascimento }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.altura_cm }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.peso_kg }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.cpf }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden xl:table-cell">{{ cliente.rg }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden sm:table-cell">{{ cliente.status }}</td>
+
+                                    <!-- AÇÕES -->
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-right">
+                                        <div class="flex items-center justify-end gap-2 lg:gap-3">
+                                            <button type="button" 
+                                                    data-id="{{ cliente.id }}"
+                                                    class="btn-editar text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button type="button" 
+                                                    onclick="if(confirm('Excluir {{ cliente.nome }}?')) { fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
+                                                    class="text-red-500 hover:text-red-700 transition-colors text-sm lg:text-base">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- FORMULÁRIO NOVO CLIENTE -->
+                <div class="mt-6 lg:mt-10 bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm">
+                    <h4 class="font-semibold mb-4 lg:mb-6 text-base lg:text-lg">Novo Cliente</h4>
+                    <form action="/clientes" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Nome completo</label>
+                            <input type="text" name="nome" required class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Telefone</label>
+                            <input type="tel" name="telefone" required placeholder="(99) 99999-9999" maxlength="15"
+                                oninput="mascararTelefone(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Grávida?</label>
+                            <select name="gravida" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                <option value="nao">Não</option>
+                                <option value="sim">Sim</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">RG</label>
+                            <input type="text" name="rg" placeholder="00.000.000-0" oninput="mascararRG(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">CPF</label>
+                            <input type="text" name="cpf" placeholder="000.000.000-00" maxlength="14" oninput="mascararCPF(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Data de nascimento</label>
+                            <input type="date" name="data_nascimento" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Altura (m)</label>
+                            <input type="text" name="altura_cm" placeholder="ex: 1,65" maxlength="4" oninput="mascararAltura(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Peso (kg)</label>
+                            <input type="text" name="peso_kg" placeholder="ex: 62,5" maxlength="6" oninput="mascararPeso(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Status</label>
+                            <select name="status" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                <option>Interessado</option>
+                                <option>Em negociação</option>
+                                <option>Fechado</option>
+                                <option>Perdido</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Data de retorno</label>
+                            <input type="date" name="data_retorno" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <button type="submit" class="sm:col-span-2 mt-4 lg:mt-6 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                            Salvar Cliente
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Nova senha</label>
-                <input type="password" name="nova_senha" required
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:outline-none focus:border-emerald-500">
+
+            <!-- ============ NEGOCIAÇÕES ============ -->
+            <div id="section-negociacoes" class="section mt-8 lg:mt-10">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-4 lg:mb-6">Negociações</h3>
+
+                <div class="bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto hide-scrollbar">
+                        <table class="w-full divide-y divide-gray-200 table-responsive">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Cliente</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Plano</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Valor</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden md:table-cell">Data</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                {% for neg in negociacoes %}
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 font-medium text-xs lg:text-base">{{ neg.nome }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden sm:table-cell">{{ neg.plano }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base">R$ {{ "%.2f"|format(neg.valor) }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden md:table-cell">{{ neg.data }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4">
+                                        <span class="px-2 lg:px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">{{ neg.status }}</span>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-400 text-sm">Nenhuma negociação cadastrada.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- FORMULÁRIO NOVA NEGOCIAÇÃO -->
+                <div class="mt-6 lg:mt-8 bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm">
+                    <h4 class="font-semibold mb-4 lg:mb-6 text-base lg:text-lg">Nova Negociação</h4>
+                    <form action="/negociacoes" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Cliente</label>
+                            <select name="cliente_id" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                {% for cliente in clientes %}
+                                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Plano</label>
+                            <input type="text" name="plano" placeholder="ex: Plano Ouro" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Valor (R$)</label>
+                            <input type="text" name="valor" placeholder="ex: 350,00" maxlength="10" oninput="mascararValor(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Data</label>
+                            <input type="date" name="data" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Status</label>
+                            <select name="status" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                <option>Em andamento</option>
+                                <option>Fechado</option>
+                                <option>Perdido</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="sm:col-span-2 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                            Salvar Negociação
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Confirmar nova senha</label>
-                <input type="password" name="confirmar_senha" required
-                       class="w-full border border-gray-300 rounded-3xl px-6 py-4 focus:outline-none focus:border-emerald-500">
+
+            <!-- ============ COBRANÇAS ============ -->
+            <div id="section-cobrancas" class="section mt-8 lg:mt-10">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-4 lg:mb-6">Cobranças</h3>
+
+                <div class="bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto hide-scrollbar">
+                        <table class="w-full divide-y divide-gray-200 table-responsive">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Cliente</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Valor</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Vencimento</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                {% for cob in cobrancas %}
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 font-medium text-xs lg:text-base">{{ cob.nome }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base">R$ {{ "%.2f"|format(cob.valor) }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden sm:table-cell">{{ cob.data_vencimento }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4">
+                                        <span class="px-2 lg:px-3 py-1 rounded-full text-xs font-medium
+                                            {% if cob.status == 'Pago' %}bg-emerald-100 text-emerald-700
+                                            {% elif cob.status == 'Atrasado' %}bg-red-100 text-red-700
+                                            {% else %}bg-amber-100 text-amber-700{% endif %}">
+                                            {{ cob.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">Nenhuma cobrança cadastrada.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- FORMULÁRIO NOVA COBRANÇA -->
+                <div class="mt-6 lg:mt-8 bg-white rounded-2xl lg:rounded-3xl p-5 lg:p-8 shadow-sm">
+                    <h4 class="font-semibold mb-4 lg:mb-6 text-base lg:text-lg">Nova Cobrança</h4>
+                    <form action="/cobrancas" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Cliente</label>
+                            <select name="cliente_id" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                {% for cliente in clientes %}
+                                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Valor (R$)</label>
+                            <input type="text" name="valor" placeholder="ex: 350,00" maxlength="10" oninput="mascararValor(this)" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Vencimento</label>
+                            <input type="date" name="data_vencimento" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs lg:text-sm font-medium mb-2">Status</label>
+                            <select name="status" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base">
+                                <option>Pendente</option>
+                                <option>Pago</option>
+                                <option>Atrasado</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="sm:col-span-2 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                            Salvar Cobrança
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="btn w-full bg-[#6aa54c] text-white py-4 rounded-3xl font-semibold">
-                Alterar Senha
-            </button>
-        </form>
+
+            <!-- ============ ALERTAS ============ -->
+            <div id="section-alertas" class="section mt-8 lg:mt-10">
+                <h3 class="text-xl lg:text-2xl font-semibold mb-4 lg:mb-6">Alertas de Retorno</h3>
+
+                {% if alertas %}
+                <div class="bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto hide-scrollbar">
+                        <table class="w-full divide-y divide-gray-200 table-responsive">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Cliente</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Telefone</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Data</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden md:table-cell">Descrição</th>
+                                    <th class="px-3 lg:px-6 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                {% for alerta in alertas %}
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 font-medium text-xs lg:text-base">{{ alerta.nome }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden sm:table-cell">{{ alerta.telefone }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base">{{ alerta.data_retorno }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden md:table-cell">{{ alerta.descricao }}</td>
+                                    <td class="px-3 lg:px-6 py-3 lg:py-4">
+                                        <span class="px-2 lg:px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium">{{ alerta.status }}</span>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-400 text-sm">Nenhum alerta pendente.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                <div class="bg-white rounded-2xl lg:rounded-3xl p-8 text-center text-gray-400">
+                    <p class="text-sm lg:text-base">Nenhum alerta pendente.</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </main>
     </div>
 </div>
 
-            </main>
-        </div>
-    </div>
-    <script src="{{ url_for('static', filename='js/meus_clientes.js') }}"></script>
-    <script>
-        // Proteção: se não estiver logado, redireciona para login
-        // Função de logout
-        function logout() {
-            window.location.replace('/logout');
-        }
+<script>
+    // Logout
+    function logout() {
+        window.location.replace('/logout');
+    }
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                const pageTitle = document.getElementById('page-title');
-                if (pageTitle) pageTitle.textContent = link.textContent.trim();
-                document.getElementById('mobile-sidebar').checked = false;
-            });
+    // Navegação
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) pageTitle.textContent = link.textContent.trim();
+            document.getElementById('mobile-sidebar').checked = false;
         });
-    </script>
-
-    <script>
-document.addEventListener('click', function(e) {
-    const btnEditar = e.target.closest('.btn-editar');
-    if (btnEditar) toggleEditar(btnEditar.dataset.id);
-
-    const btnCancelar = e.target.closest('.btn-cancelar');
-    if (btnCancelar) cancelarEdicao(btnCancelar.dataset.id);
-});
+    });
 </script>
-    <script>
-function mascararTelefone(input) {
-    let v = input.value.replace(/\D/g, ''); // remove tudo que não é número
-    if (v.length <= 10) {
-        v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-    } else {
-        v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-    }
-    input.value = v;
-}
 
-function mascararCPF(input) {
-    let v = input.value.replace(/\D/g, '');
-    v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
-    input.value = v;
-}
-
-function mascararRG(input) {
-    let v = input.value.replace(/\D/g, '');
-    v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,1})/, '$1.$2.$3-$4');
-    input.value = v;
-}
-
-function mascararAltura(input) {
-    let v = input.value.replace(/\D/g, '');
-    if (v.length >= 3) {
-        v = v.substring(0, 3);
-        v = v.replace(/^(\d{1})(\d{2})/, '$1,$2');
-    }
-    input.value = v;
-}
-
-function mascararPeso(input) {
-    let v = input.value.replace(/\D/g, '');
-    if (v.length === 0) {
-        input.value = '';
-        return;
-    }
-    // Permite digitar livremente até 5 dígitos
-    if (v.length <= 3) {
+<script>
+    // Mascaras
+    function mascararTelefone(input) {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length <= 10) {
+            v = v.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else {
+            v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+        }
         input.value = v;
-    } else {
-        // Insere vírgula antes dos últimos 2 dígitos
-        let intPart = v.slice(0, v.length - 2);
-        let decPart = v.slice(-2);
-        input.value = intPart + ',' + decPart;
     }
-}
-function mascararValor(input) {
-    let v = input.value.replace(/\D/g, '');
-    v = (parseInt(v) / 100).toFixed(2);
-    if (isNaN(v)) v = '0.00';
-    v = v.replace('.', ',');
-    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    input.value = v;
-}
+
+    function mascararCPF(input) {
+        let v = input.value.replace(/\D/g, '');
+        v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+        input.value = v;
+    }
+
+    function mascararRG(input) {
+        let v = input.value.replace(/\D/g, '');
+        v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,1})/, '$1.$2.$3-$4');
+        input.value = v;
+    }
+
+    function mascararAltura(input) {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length >= 3) {
+            v = v.substring(0, 3);
+            v = v.replace(/^(\d{1})(\d{2})/, '$1,$2');
+        }
+        input.value = v;
+    }
+
+    function mascararPeso(input) {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length === 0) {
+            input.value = '';
+            return;
+        }
+        if (v.length <= 3) {
+            input.value = v;
+        } else {
+            let intPart = v.slice(0, v.length - 2);
+            let decPart = v.slice(-2);
+            input.value = intPart + ',' + decPart;
+        }
+    }
+
+    function mascararValor(input) {
+        let v = input.value.replace(/\D/g, '');
+        v = (parseInt(v) / 100).toFixed(2);
+        if (isNaN(v)) v = '0.00';
+        v = v.replace('.', ',');
+        v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        input.value = v;
+    }
 </script>
 
 </body>
