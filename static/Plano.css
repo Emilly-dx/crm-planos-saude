@@ -1,403 +1,69 @@
-/* ============================================================
-   BOTÕES FLUIDOS - CSS OTIMIZADO
-   Copie e cole este código no seu arquivo Plano.css
-   ============================================================ */
 
 :root {
     --primary: #0ea5e9;
-    --accent: rgb(89, 235, 53);
-    --dark: #000000;
-    --duration: 0.4s;
-    --easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+body { font-family: 'Inter', system-ui, sans-serif; }
 
-body { 
-    font-family: 'Inter', system-ui, sans-serif; 
-}
-
-/* ========== ANIMAÇÕES DE ENTRADA ========== */
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from { 
-        opacity: 0; 
-    }
-    to { 
-        opacity: 1; 
-    }
-}
-
-/* ========== BOTÃO PADRÃO (.btn) ========== */
-.btn {
-    /* Animação de entrada */
-    animation: slideInUp 0.6s var(--easing-bounce);
-    
-    /* Transições suaves */
-    transition: all var(--duration) var(--easing);
-    
-    /* Posicionamento para efeito ripple */
-    position: relative;
-    overflow: hidden;
-    
-    /* Estilo base */
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    user-select: none;
-    outline: none;
-}
-
-/* Efeito Ripple (ondulação) */
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease-out, height 0.6s ease-out;
-    pointer-events: none;
-}
-
-/* Ripple ao hover */
-.btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-/* Estado Hover */
-.btn:hover {
-    background-color: var(--dark);
-    color: var(--accent);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 
-        0 12px 30px rgba(89, 235, 53, 0.35),
-        0 0 20px rgba(89, 235, 53, 0.5),
-        inset 0 0 10px rgba(89, 235, 53, 0.1);
-    letter-spacing: 1px;
-}
-
-/* Estado Active (ao clicar) */
-.btn:active {
-    transform: translateY(-1px) scale(0.98);
-    box-shadow: 
-        0 6px 15px rgba(89, 235, 53, 0.2),
-        inset 0 0 10px rgba(89, 235, 53, 0.15);
-}
-
-/* Estado Focus (para acessibilidade) */
-.btn:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
-
-/* ========== BOTÃO ENTER ESPECIAL ========== */
-.enter {
-    /* Animação de entrada com delay */
-    animation: slideInUp 0.6s var(--easing-bounce) 0.1s backwards;
-    
-    /* Transições suaves */
-    transition: all var(--duration) var(--easing);
-    
-    /* Posicionamento para efeito ripple */
-    position: relative;
-    overflow: hidden;
-    
-    /* Estilo base */
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 1px;
-    user-select: none;
-    outline: none;
-}
-
-/* Efeito Ripple aumentado */
-.enter::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease-out, height 0.6s ease-out;
-    pointer-events: none;
-}
-
-/* Ripple maior ao hover */
-.enter:hover::before {
-    width: 350px;
-    height: 350px;
-}
-
-/* Estado Hover mais intenso */
-.enter:hover {
-    background-color: var(--dark);
-    color: var(--accent);
-    transform: translateY(-4px) scale(1.08);
-    box-shadow: 
-        0 15px 40px rgba(89, 235, 53, 0.4),
-        0 0 30px rgba(89, 235, 53, 0.6),
-        inset 0 0 15px rgba(89, 235, 53, 0.15);
-    letter-spacing: 1.5px;
-}
-
-/* Estado Active mais pronunciado */
-.enter:active {
-    transform: translateY(-2px) scale(0.96);
-    box-shadow: 
-        0 8px 20px rgba(89, 235, 53, 0.25),
-        inset 0 0 15px rgba(89, 235, 53, 0.2);
-}
-
-/* ========== NAV LINKS COM EFEITO SUBLINHADO ========== */
 .nav-link {
-    transition: all var(--duration) var(--easing);
-    position: relative;
-    padding-bottom: 2px;
-    display: inline-block;
-    color: inherit;
-    text-decoration: none;
+    transition: all 0.2s ease;
 }
-
-/* Sublinhado animado */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width var(--duration) var(--easing);
-}
-
-/* Hover do nav-link */
 .nav-link:hover {
     transform: translateX(8px);
-    color: var(--accent);
 }
 
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* ========== BOTÕES DE AÇÕES (EDIT, DELETE, etc) ========== */
-.btn-action {
-    transition: all var(--duration) var(--easing);
-    position: relative;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.btn-action::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(89, 235, 53, 0.1);
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease-out, height 0.4s ease-out;
-    pointer-events: none;
-}
-
-.btn-action:hover::before {
-    width: 150px;
-    height: 150px;
-}
-
-.btn-action:hover {
-    background-color: rgba(89, 235, 53, 0.1);
-    transform: scale(1.1);
-    color: var(--accent);
-}
-
-/* ========== CAMPOS DE STATUS COM TRANSIÇÕES ========== */
-.status-interessado { 
-    background-color: #fef3c7; 
-    color: #854d0e;
-    transition: all var(--duration) var(--easing);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.status-interessado:hover {
-    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
-    transform: translateY(-2px);
-}
-
-.status-em-negociacao { 
-    background-color: #dbeafe; 
-    color: #1e40af;
-    transition: all var(--duration) var(--easing);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.status-em-negociacao:hover {
-    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
-    transform: translateY(-2px);
-}
-
-.status-fechado { 
-    background-color: #d1fae5; 
-    color: #065f46;
-    transition: all var(--duration) var(--easing);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.status-fechado:hover {
-    box-shadow: 0 4px 12px rgba(6, 95, 70, 0.3);
-    transform: translateY(-2px);
-}
-
-.status-perdido { 
-    background-color: #fee2e2; 
-    color: #991b1b;
-    transition: all var(--duration) var(--easing);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.status-perdido:hover {
-    box-shadow: 0 4px 12px rgba(153, 27, 27, 0.3);
-    transform: translateY(-2px);
-}
-
-/* ========== CARD COM EFEITO FLUIDO ========== */
-.card {
-    transition: all var(--duration) var(--easing);
-    position: relative;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* ========== INPUT COM FOCO FLUIDO ========== */
-input, 
-textarea, 
-select {
-    transition: all var(--duration) var(--easing);
-    border-color: #e5e7eb;
-}
-
-input:focus, 
-textarea:focus, 
-select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(89, 235, 53, 0.1);
-    transform: scale(1.01);
-}
-
-/* ========== MODAL/DIALOG COM ANIMAÇÃO ========== */
-dialog {
-    animation: slideInDown 0.4s var(--easing-bounce);
-}
-
-dialog::backdrop {
-    animation: fadeIn 0.3s var(--easing);
-}
-
-/* ========== RESPONSIVIDADE ========== */
-@media (max-width: 768px) {
-    .btn {
-        animation: slideInUp 0.6s var(--easing-bounce) 0.05s backwards;
-        padding: 10px 16px;
-        font-size: 14px;
-    }
+/* Login screen */
+#login-screen {
+    animation: fadeIn 0.6s ease;
     
-    .btn:hover {
-        transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 8px 20px rgba(89, 235, 53, 0.3);
-    }
-    
-    .enter {
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-    
-    .enter:hover {
-        transform: translateY(-2px) scale(1.05);
-    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
+/* Responsividade e sidebar mobile (mantido do base) */
 @media (max-width: 1024px) {
-    .sidebar { 
-        position: fixed; 
-        transform: translateX(-100%);
-        transition: transform var(--duration) var(--easing);
-        z-index: 50;
-    }
+    .sidebar { position: fixed; transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+}
+
+/* Cores dos status (igual ao base) */
+.status-interessado { background-color: #fef3c7; color: #854d0e; }
+.status-em-negociacao { background-color: #dbeafe; color: #1e40af; }
+.status-fechado { background-color: #d1fae5; color: #065f46; }
+.status-perdido { background-color: #fee2e2; color: #991b1b; }
+
+#mobile-sidebar:checked ~ .w-72 .hamburguer-btn {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 60;
+}
+
+.btn {
+
+    transition: all 0.3s ease;
+}
+
+.btn:hover{
+    background-color: #000000;
+    color: rgb(89, 235, 53);
+
+    transform: translateY(-2px);
+
+}
+
+.enter {
     
-    .sidebar.open { 
-        transform: translateX(0); 
-    }
+    transition: all 0.3s ease;
 }
 
-/* ========== DESABILITAR BOTÃO ========== */
-.btn:disabled,
-.enter:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-}
+.enter:hover{
+    background-color: #000000;
+    color: rgb(89, 235, 53);
 
-.btn:disabled:hover,
-.enter:disabled:hover {
-    background-color: inherit;
-    color: inherit;
-    transform: none !important;
+    transform: translateY(-2px);
+
 }
