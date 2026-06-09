@@ -34,13 +34,13 @@
     
     <!-- SIDEBAR -->
     <div class="w-full lg:w-72 bg-white border-b lg:border-r border-gray-200 flex flex-col shadow-xl 
-            lg:sticky lg:top-0 fixed inset-y-0 left-0 z-50 
-            -translate-x-full peer-checked:translate-x-0 
-            lg:translate-x-0
-            transition-transform duration-300 lg:h-screen lg:max-h-screen lg:overflow-y-auto">
+                lg:static fixed inset-y-0 left-0 z-50 
+                -translate-x-full peer-checked:translate-x-0 
+                lg:translate-x-0 lg:static 
+                transition-transform duration-300 lg:h-screen">
                 
         <!-- LOGO E HEADER -->
-        <div class="px-6 py-6 border-b border-gray-100 flex items-center justify-between flex-shrink-0"></div>
+        <div class="px-6 py-6 border-b border-gray-100 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 lg:w-12 lg:h-12 bg-[#6aa54c] rounded-2xl flex items-center justify-center text-white text-2xl lg:text-3xl font-bold">🩺</div>
                 <div>
@@ -68,7 +68,7 @@
         </nav>
 
         <!-- PERFIL -->
-        <div class="p-4 lg:p-6 border-t border-gray-100 flex-shrink-0">
+        <div class="p-4 lg:p-6 border-t border-gray-100">
             <div class="flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 bg-gray-50 rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors">
                 <a href="/configuracoes" class="flex items-center gap-2 lg:gap-3 flex-1 min-w-0">
                     <div class="w-8 h-8 lg:w-10 lg:h-10 bg-emerald-100 text-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center text-lg lg:text-2xl flex-shrink-0">👨‍💼</div>
@@ -490,16 +490,12 @@
 
     // Navegação
     document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-        const pageTitle = document.getElementById('page-title');
-        if (pageTitle) pageTitle.textContent = this.textContent.trim();
-        // Fechar sidebar apenas em mobile
-        const isMobile = window.innerWidth < 1024; // lg breakpoint
-        if (isMobile) {
+        link.addEventListener('click', () => {
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) pageTitle.textContent = link.textContent.trim();
             document.getElementById('mobile-sidebar').checked = false;
-        }
+        });
     });
-});
 </script>
 
 <script>
