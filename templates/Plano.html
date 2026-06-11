@@ -682,6 +682,9 @@
         document.getElementById('editTelefone').value =
             btn.dataset.telefone || '';
 
+        document.getElementById('formEditar').action =
+            `/clientes/${btn.dataset.id}`;
+
         document.getElementById('editNascimento').value =
             btn.dataset.nascimento || '';
 
@@ -696,9 +699,6 @@
 
         document.getElementById('editRg').value =
             btn.dataset.rg || '';
-
-        document.getElementById('editGravida').value =
-            btn.dataset.gravida || '';
 
         document.getElementById('formEditar').action =
             `/clientes/${btn.dataset.id}`;
