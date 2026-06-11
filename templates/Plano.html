@@ -588,6 +588,16 @@
                 placeholder="Telefone"
                 class="w-full border rounded-xl p-3">
 
+            <select
+                id="editGravida"
+                name="gravida"
+                class="w-full border rounded-xl p-3">
+
+                <option>Sim</option>
+                <option>Não</option>
+
+            </select>
+
             <input
                 id="editCpf"
                 name="cpf"
@@ -656,8 +666,8 @@
         document.getElementById('editRg').value =
             btn.dataset.rg || '';
 
-        document.getElementById('editStatus').value =
-            btn.dataset.status || '';
+        document.getElementById('editGravida').value =
+            btn.dataset.gravida || '';
 
         document.getElementById('formEditar').action =
             `/clientes/${btn.dataset.id}`;
