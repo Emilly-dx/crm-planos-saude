@@ -599,6 +599,24 @@
             </select>
 
             <input
+                id="editNascimento"
+                name="nascimento"
+                placeholder="nascimento"
+                class="w-full border rounded-xl p-3">
+
+            <input
+                id="editAltura"
+                name="altura"
+                placeholder="altura"
+                class="w-full border rounded-xl p-3">
+
+            <input
+                id="editPeso"
+                name="peso"
+                placeholder="Peso"
+                class="w-full border rounded-xl p-3">
+
+            <input
                 id="editCpf"
                 name="cpf"
                 placeholder="CPF"
@@ -659,6 +677,15 @@
 
         document.getElementById('editTelefone').value =
             btn.dataset.telefone || '';
+
+        document.getElementById('editNascimento').value =
+            btn.dataset.nascimento || '';
+
+        document.getElementById('editAltura').value =
+            btn.dataset.altura || '';
+
+        document.getElementById('editPeso').value =
+            btn.dataset.peso || '';
 
         document.getElementById('editCpf').value =
             btn.dataset.cpf || '';
