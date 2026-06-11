@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/Plano.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Plano.css') }}">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -205,10 +205,16 @@
                                     <!-- AÇÕES -->
                                     <td class="px-3 lg:px-5 py-3 lg:py-4 text-right">
                                         <div class="flex items-center justify-end gap-2 lg:gap-3">
-                                            <button type="button" 
-                                                    data-id="{{ cliente.id }}"
-                                                    class="btn-editar text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base">
-                                                <i class="fa-solid fa-pen"></i>
+                                            <button
+                                            type="button"
+                                            class="btn-editar text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base"
+                                                data-id="{{ cliente.id }}"
+                                                    data-nome="{{ cliente.nome }}"
+                                                        data-telefone="{{ cliente.telefone }}"
+                                                        data-cpf="{{ cliente.cpf }}"
+                                                    data-rg="{{ cliente.rg }}"
+                                                data-status="{{ cliente.status }}">
+                                            <i class="fa-solid fa-pen"></i>
                                             </button>
                                             <button type="button" 
                                                     onclick="if(confirm('Excluir {{ cliente.nome }}?')) { fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
@@ -555,6 +561,122 @@
         v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
         input.value = v;
     }
+</script>
+
+<div id="modalEditar"
+     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+    <form id="formEditar"
+          method="POST"
+          class="bg-white p-6 rounded-3xl w-full max-w-lg">
+
+        <h3 class="text-xl font-bold mb-4">
+            Editar Cliente
+        </h3>
+
+        <div class="space-y-3">
+
+            <input
+                id="editNome"
+                name="nome"
+                placeholder="Nome"
+                class="w-full border rounded-xl p-3">
+
+            <input
+                id="editTelefone"
+                name="telefone"
+                placeholder="Telefone"
+                class="w-full border rounded-xl p-3">
+
+            <input
+                id="editCpf"
+                name="cpf"
+                placeholder="CPF"
+                class="w-full border rounded-xl p-3">
+
+            <input
+                id="editRg"
+                name="rg"
+                placeholder="RG"
+                class="w-full border rounded-xl p-3">
+
+            <select
+                id="editStatus"
+                name="status"
+                class="w-full border rounded-xl p-3">
+
+                <option>Interessado</option>
+                <option>Em negociação</option>
+                <option>Fechado</option>
+                <option>Perdido</option>
+
+            </select>
+
+        </div>
+
+        <div class="flex justify-end gap-3 mt-6">
+
+            <button
+                type="button"
+                onclick="fecharModal()"
+                class="px-4 py-2 rounded-xl bg-gray-300">
+
+                Cancelar
+
+            </button>
+
+            <button
+                type="submit"
+                class="px-4 py-2 rounded-xl bg-green-600 text-white">
+
+                Salvar
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        document.getElementById('editNome').value =
+            btn.dataset.nome || '';
+
+        document.getElementById('editTelefone').value =
+            btn.dataset.telefone || '';
+
+        document.getElementById('editCpf').value =
+            btn.dataset.cpf || '';
+
+        document.getElementById('editRg').value =
+            btn.dataset.rg || '';
+
+        document.getElementById('editStatus').value =
+            btn.dataset.status || '';
+
+        document.getElementById('formEditar').action =
+            `/clientes/${btn.dataset.id}`;
+
+        document
+            .getElementById('modalEditar')
+            .classList.remove('hidden');
+
+    });
+
+});
+
+function fecharModal() {
+
+    document
+        .getElementById('modalEditar')
+        .classList.add('hidden');
+
+}
 </script>
 
 </body>
