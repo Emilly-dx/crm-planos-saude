@@ -603,22 +603,22 @@
             </select>
 
             <input
-                id="editNascimento"
-                name="nascimento"
-                placeholder="Nascimento"
-                class="w-full border rounded-xl p-3">
+            id="editNascimento"
+            name="data_nascimento"
+            type="date"
+            class="w-full border rounded-xl p-3">
 
             <input
-                id="editAltura"
-                name="altura"
-                placeholder="Altura"
-                class="w-full border rounded-xl p-3">
-
+            id="editAltura"
+            name="altura_cm"
+            placeholder="Altura"
+            class="w-full border rounded-xl p-3">
+            
             <input
-                id="editPeso"
-                name="peso"
-                placeholder="Peso"
-                class="w-full border rounded-xl p-3">
+            id="editPeso"
+            name="peso_kg"
+            placeholder="Peso"
+            class="w-full border rounded-xl p-3">
 
             <input
                 id="editCpf"
@@ -686,13 +686,13 @@
             btn.dataset.gravida === '1' ? 'Sim' : 'Não';
 
         document.getElementById('editNascimento').value =
-            btn.dataset.nascimento || '';
+            btn.dataset.data_nascimento || '';
 
         document.getElementById('editAltura').value =
-            btn.dataset.altura || '';
+            btn.dataset.altura_cm || '';
 
         document.getElementById('editPeso').value =
-            btn.dataset.peso || '';
+            btn.dataset.peso_kg || '';
 
         document.getElementById('editCpf').value =
             btn.dataset.cpf || '';
@@ -700,13 +700,15 @@
         document.getElementById('editRg').value =
             btn.dataset.rg || '';
 
+        document.getElementById('editStatus').value =
+            btn.dataset.status || '';
+
         document.getElementById('formEditar').action =
             `/clientes/${btn.dataset.id}`;
 
         document
             .getElementById('modalEditar')
             .classList.remove('hidden');
-
     });
 
 });
