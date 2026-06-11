@@ -682,8 +682,8 @@
         document.getElementById('editTelefone').value =
             btn.dataset.telefone || '';
 
-        document.getElementById('formEditar').action =
-            `/clientes/${btn.dataset.id}`;
+        document.getElementById('editGravida').value =
+            btn.dataset.gravida === '1' ? 'Sim' : 'Não';
 
         document.getElementById('editNascimento').value =
             btn.dataset.nascimento || '';
