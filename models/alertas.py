@@ -43,3 +43,11 @@ def contar_alertas_hoje():
     cursor.close()
     conn.close()
     return total
+
+def atualizar_data_alerta(id, nova_data):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE alertas SET data_retorno = %s WHERE id = %s", (nova_data, id))
+    conn.commit()
+    cursor.close()
+    conn.close()
