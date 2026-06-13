@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plano de Saúde • CRM Corretor Autônomo</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="{{ url_for('static', filename='Plano.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='Plano.css') }}">
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -60,11 +60,11 @@
         <!-- NAVEGAÇÃO -->
         <nav class="flex-1 px-4 py-6 overflow-y-auto">
             <ul class="space-y-1">
-                <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-house w-5 lg:w-6 text-lg lg:text-xl"></i><span>Início</span></a></li>
-                <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-users w-5 lg:w-6 text-lg lg:text-xl"></i><span>Meus Clientes</span></a></li>
-                <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-handshake w-5 lg:w-6 text-lg lg:text-xl"></i><span>Negociações</span></a></li>
-                <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-dollar-sign w-5 lg:w-6 text-lg lg:text-xl"></i><span>Cobranças</span></a></li>
-                <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100 transition-colors"><i class="fa-solid fa-bell w-5 lg:w-6 text-lg lg:text-xl"></i><span>Alertas</span></a></li>
+                <li><a href="#section-dashboard" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100"><i class="fa-solid fa-house w-5 lg:w-6 text-lg lg:text-xl"></i><span>Início</span></a></li>
+                <li><a href="#section-clientes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100"><i class="fa-solid fa-users w-5 lg:w-6 text-lg lg:text-xl"></i><span>Meus Clientes</span></a></li>
+                <li><a href="#section-negociacoes" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100"><i class="fa-solid fa-handshake w-5 lg:w-6 text-lg lg:text-xl"></i><span>Negociações</span></a></li>
+                <li><a href="#section-cobrancas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100"><i class="fa-solid fa-dollar-sign w-5 lg:w-6 text-lg lg:text-xl"></i><span>Cobranças</span></a></li>
+                <li><a href="#section-alertas" class="nav-link flex items-center gap-4 px-4 lg:px-6 py-3 lg:py-4 text-base lg:text-lg font-medium rounded-2xl lg:rounded-3xl hover:bg-green-100"><i class="fa-solid fa-bell w-5 lg:w-6 text-lg lg:text-xl"></i><span>Alertas</span></a></li>
             </ul>
         </nav>
 
@@ -287,7 +287,7 @@
                             <label class="block text-xs lg:text-sm font-medium mb-2">Data de retorno</label>
                             <input type="date" name="data_retorno" class="w-full border border-gray-300 rounded-2xl lg:rounded-3xl px-4 lg:px-6 py-2 lg:py-4 text-sm lg:text-base focus:border-sky-500 focus:outline-none">
                         </div>
-                        <button type="submit" class="sm:col-span-2 mt-4 lg:mt-6 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                        <button type="submit" class="... bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-all duration-300 text-sm lg:text-base">
                             Salvar Cliente
                         </button>
                     </form>
@@ -363,7 +363,7 @@
                                 <option>Perdido</option>
                             </select>
                         </div>
-                        <button type="submit" class="sm:col-span-2 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                        <button type="submit" class="... bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-all duration-300 text-sm lg:text-base">
                             Salvar Negociação
                         </button>
                     </form>
@@ -438,7 +438,7 @@
                                 <option>Atrasado</option>
                             </select>
                         </div>
-                        <button type="submit" class="sm:col-span-2 bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-colors text-sm lg:text-base">
+                        <button type="submit" class="... bg-[#6aa54c] text-white py-3 lg:py-4 rounded-2xl lg:rounded-3xl font-semibold hover:bg-emerald-700 transition-all duration-300 text-sm lg:text-base">
                             Salvar Cobrança
                         </button>
                     </form>
