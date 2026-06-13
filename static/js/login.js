@@ -15,3 +15,5 @@ if (localStorage.getItem('logado') === 'true') {
         document.getElementById('logged-in').checked = false;  // Desmarca o checkbox
         window.location.reload();                    // Recarrega a página
     }
+
+
