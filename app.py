@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, session, f
 from functools import wraps
 from datetime import date
 from models.clientes import listar_todos_clientes, salvar_novo_cliente, atualizar_cliente, excluir_cliente
-from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alertas_hoje, atualizar_data_alerta, excluir_alerta
+from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alertas_hoje, atualizar_data_alerta, excluir_alerta, excluir_alertas_vencidos
 from models.negociacao import listar_negociacoes, salvar_negociacao, contar_negociacoes_abertas
 from models.cobranca import listar_cobrancas, salvar_cobranca, contar_cobrancas_em_dia, contar_cobrancas_atrasadas
 from models.corretores import verificar_login, atualizar_senha, buscar_corretor_por_email
@@ -176,6 +176,15 @@ def deletar_alerta(id):
         return redirect(url_for("home"))
     except Exception as e:
         return f"Erro ao excluir alerta: {e}"
+    
+@app.route("/alertas/excluir-vencidos", methods=["POST"])
+@login_required
+def deletar_alertas_vencidos():
+    try:
+        excluir_alertas_vencidos()
+        return redirect(url_for("home"))
+    except Exception as e:
+        return f"Erro ao excluir alertas vencidos: {e}"
     
 # Inicialização
 if __name__ == "__main__":

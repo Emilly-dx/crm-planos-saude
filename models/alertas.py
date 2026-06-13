@@ -59,3 +59,12 @@ def excluir_alerta(id):
     conn.commit()
     cursor.close()
     conn.close()
+
+def excluir_alertas_vencidos():
+    from datetime import date
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM alertas WHERE data_retorno < %s", (date.today(),))
+    conn.commit()
+    cursor.close()
+    conn.close()
