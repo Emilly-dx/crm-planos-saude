@@ -51,3 +51,11 @@ def atualizar_data_alerta(id, nova_data):
     conn.commit()
     cursor.close()
     conn.close()
+
+def excluir_alerta(id):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM alertas WHERE id = %s", (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()

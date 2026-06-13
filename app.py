@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from functools import wraps
+from datetime import date
 from models.clientes import listar_todos_clientes, salvar_novo_cliente, atualizar_cliente, excluir_cliente
-from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alertas_hoje, atualizar_data_alerta
+from models.alertas import criar_alerta, listar_alertas_pendentes, contar_alertas_hoje, atualizar_data_alerta, excluir_alerta
 from models.negociacao import listar_negociacoes, salvar_negociacao, contar_negociacoes_abertas
 from models.cobranca import listar_cobrancas, salvar_cobranca, contar_cobrancas_em_dia, contar_cobrancas_atrasadas
 from models.corretores import verificar_login, atualizar_senha, buscar_corretor_por_email
@@ -59,16 +60,17 @@ def home():
     cobrancas_atrasadas = contar_cobrancas_atrasadas()
 
     return render_template("Plano.html",
-                           clientes=clientes,
-                           alertas=alertas,
-                           total_hoje=total_hoje,
-                           negociacoes=negociacoes,
-                           cobrancas=cobrancas,
-                           total_clientes=total_clientes,
-                           total_negociacoes_abertas=total_negociacoes_abertas,
-                           total_cobrancas_em_dia=total_cobrancas_em_dia,
-                           cobrancas_atrasadas=cobrancas_atrasadas,
-                           corretor_nome=session.get("corretor_nome"))
+                       clientes=clientes,
+                       alertas=alertas,
+                       total_hoje=total_hoje,
+                       negociacoes=negociacoes,
+                       cobrancas=cobrancas,
+                       total_clientes=total_clientes,
+                       total_negociacoes_abertas=total_negociacoes_abertas,
+                       total_cobrancas_em_dia=total_cobrancas_em_dia,
+                       cobrancas_atrasadas=cobrancas_atrasadas,
+                       corretor_nome=session.get("corretor_nome"),
+                       today=date.today())
 
 # Configurações
 @app.route("/configuracoes")
@@ -166,6 +168,15 @@ def editar_alerta(id):
     except Exception as e:
         return f"Erro ao editar alerta: {e}"
 
+@app.route("/alertas/<int:id>/excluir", methods=["POST"])
+@login_required
+def deletar_alerta(id):
+    try:
+        excluir_alerta(id)
+        return redirect(url_for("home"))
+    except Exception as e:
+        return f"Erro ao excluir alerta: {e}"
+    
 # Inicialização
 if __name__ == "__main__":
     import os

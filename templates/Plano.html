@@ -486,7 +486,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
                                 {% for alerta in alertas %}
-                                <tr class="hover:bg-gray-50 transition-colors">
+                                <tr class="transition-colors {% if alerta.data_retorno and alerta.data_retorno == today %}bg-red-50 hover:bg-red-100{% else %}hover:bg-gray-50{% endif %}">
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 font-medium text-xs lg:text-base">{{ alerta.nome }}</td>
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden sm:table-cell">{{ alerta.telefone }}</td>
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base">{{ alerta.data_retorno }}</td>
@@ -495,13 +495,20 @@
                                         <span class="px-2 lg:px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium">{{ alerta.status }}</span>
                                     </td>
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 text-right">
-                                        <button type="button"
-                                                class="btn-editar-alerta text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base"
-                                                data-id="{{ alerta.id }}"
-                                                data-cliente="{{ alerta.nome }}"
-                                                data-data="{{ alerta.data_retorno }}">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
+                                        <div class="flex items-center justify-end gap-2 lg:gap-3">
+                                            <button type="button"
+                                                    class="btn-editar-alerta text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base"
+                                                    data-id="{{ alerta.id }}"
+                                                    data-cliente="{{ alerta.nome }}"
+                                                    data-data="{{ alerta.data_retorno }}">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button type="button"
+                                                    onclick="if(confirm('Excluir alerta de {{ alerta.nome }}?')) { fetch('/alertas/{{ alerta.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
+                                                    class="text-red-500 hover:text-red-700 transition-colors text-sm lg:text-base">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 {% else %}
