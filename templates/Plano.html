@@ -486,7 +486,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
                                 {% for alerta in alertas %}
-                                <tr class="transition-colors {% if alerta.data_retorno and alerta.data_retorno == today %}bg-red-50 hover:bg-red-100{% else %}hover:bg-gray-50{% endif %}">
+                                <tr class="transition-colors {% if alerta.data_retorno and today > alerta.data_retorno %}bg-red-50 hover:bg-red-100{% else %}hover:bg-gray-50{% endif %}">
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 font-medium text-xs lg:text-base">{{ alerta.nome }}</td>
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base hidden sm:table-cell">{{ alerta.telefone }}</td>
                                     <td class="px-3 lg:px-6 py-3 lg:py-4 text-xs lg:text-base">{{ alerta.data_retorno }}</td>
