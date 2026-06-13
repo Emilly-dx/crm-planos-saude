@@ -194,54 +194,53 @@
 
                 <!-- TABELA RESPONSIVA -->
                 <div class="bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm">
-                    <div class="overflow-x-auto hide-scrollbar">
-                        <table class="w-full divide-y divide-gray-200 table-responsive table-fixed">
-                            <thead class="bg-gray-50 sticky top-0 z-10 block w-full">
-                                <tr class="flex w-full">
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1">Nome</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1">Telefone</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden sm:flex">Grávida?</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden md:flex">Nascimento</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden lg:flex">Altura</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden lg:flex">Peso</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden lg:flex">CPF</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden xl:flex">RG</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 flex-1 hidden sm:flex">Status</th>
-                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-right text-xs lg:text-sm font-semibold text-gray-700 flex-1">Ações</th>
+                    <div class="max-h-[300px] overflow-y-auto overflow-x-auto hide-scrollbar">
+                        <table class="w-full divide-y divide-gray-200 table-responsive">
+                            <thead class="bg-gray-50 sticky top-0 z-10">
+                                <tr>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Nome</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700">Telefone</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Grávida?</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden md:table-cell">Nascimento</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">Altura</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-center text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">Peso</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden lg:table-cell">CPF</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden xl:table-cell">RG</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-left text-xs lg:text-sm font-semibold text-gray-700 hidden sm:table-cell">Status</th>
+                                    <th class="px-3 lg:px-5 py-3 lg:py-4 text-right text-xs lg:text-sm font-semibold text-gray-700">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-100 block max-h-[300px] overflow-y-auto w-full">
+                            <tbody class="bg-white divide-y divide-gray-100">
                                 {% for cliente in clientes %}
-                                <tr class="flex w-full hover:bg-gray-50 transition-colors" id="linha-{{ cliente.id }}">
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base font-medium flex-1 truncate">{{ cliente.nome }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base flex-1 truncate">{{ cliente.telefone }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base flex-1 hidden sm:flex items-center">{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base flex-1 hidden md:flex items-center">{{ cliente.data_nascimento }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base flex-1 hidden lg:flex items-center">{{ cliente.altura_cm }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base flex-1 hidden lg:flex items-center">{{ cliente.peso_kg }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base flex-1 hidden lg:flex items-center truncate">{{ cliente.cpf }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base flex-1 hidden xl:flex items-center truncate">{{ cliente.rg }}</td>
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base flex-1 hidden sm:flex items-center">{{ cliente.status }}</td>
-
+                                <tr class="hover:bg-gray-50 transition-colors" id="linha-{{ cliente.id }}">
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base font-medium">{{ cliente.nome }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base">{{ cliente.telefone }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden sm:table-cell">{{ "Sim" if cliente.gravida == 1 else "Não" }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden md:table-cell">{{ cliente.data_nascimento }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.altura_cm }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-center view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.peso_kg }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden lg:table-cell">{{ cliente.cpf }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden xl:table-cell">{{ cliente.rg }}</td>
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 view-mode text-xs lg:text-base hidden sm:table-cell">{{ cliente.status }}</td>
                                     <!-- AÇÕES -->
-                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-right flex-1 flex items-center justify-end">
+                                    <td class="px-3 lg:px-5 py-3 lg:py-4 text-right">
                                         <div class="flex items-center justify-end gap-2 lg:gap-3">
                                             <button
                                             type="button"
                                             class="btn-editar text-sky-600 hover:text-sky-800 transition-colors text-sm lg:text-base"
                                                 data-id="{{ cliente.id }}"
-                                                    data-nome="{{ cliente.nome }}"
-                                                        data-telefone="{{ cliente.telefone }}"
-                                                                data-gravida="{{ cliente.gravida }}"
-                                                                data-data_nascimento="{{ cliente.data_nascimento }}"
-                                                                data-altura_cm="{{ cliente.altura_cm }}"
-                                                            data-peso_kg="{{ cliente.peso_kg }}"
-                                                        data-cpf="{{ cliente.cpf }}"
-                                                    data-rg="{{ cliente.rg }}"
+                                                data-nome="{{ cliente.nome }}"
+                                                data-telefone="{{ cliente.telefone }}"
+                                                data-gravida="{{ cliente.gravida }}"
+                                                data-data_nascimento="{{ cliente.data_nascimento }}"
+                                                data-altura_cm="{{ cliente.altura_cm }}"
+                                                data-peso_kg="{{ cliente.peso_kg }}"
+                                                data-cpf="{{ cliente.cpf }}"
+                                                data-rg="{{ cliente.rg }}"
                                                 data-status="{{ cliente.status }}">
-                                            <i class="fa-solid fa-pen"></i>
+                                                <i class="fa-solid fa-pen"></i>
                                             </button>
-                                            <button type="button" 
+                                            <button type="button"
                                                     onclick="if(confirm('Excluir {{ cliente.nome }}?')) { fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
                                                     class="text-red-500 hover:text-red-700 transition-colors text-sm lg:text-base">
                                                 <i class="fa-solid fa-trash"></i>
