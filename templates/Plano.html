@@ -241,7 +241,7 @@
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
                                             <button type="button"
-                                                    onclick="if(confirm('Excluir {{ cliente.nome }}?')) { fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
+                                                    onclick="if(confirm('Confirmar exclusão?')) { fetch('/clientes/{{ cliente.id }}/excluir', {method: 'POST'}).then(() => location.reload()); }"
                                                     class="text-red-500 hover:text-red-700 transition-colors text-sm lg:text-base">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>

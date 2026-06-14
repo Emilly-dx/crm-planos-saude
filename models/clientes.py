@@ -4,9 +4,13 @@ def listar_todos_clientes():
     conn = conectar()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("""
-        SELECT c.*, a.data_retorno 
+        SELECT c.*, 
+               (SELECT a.data_retorno 
+                FROM alertas a 
+                WHERE a.cliente_id = c.id 
+                ORDER BY a.data_retorno DESC 
+                LIMIT 1) as data_retorno
         FROM clientes c
-        LEFT JOIN alertas a ON a.cliente_id = c.id
         ORDER BY c.id
     """)
     clientes = cursor.fetchall()
